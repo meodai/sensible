@@ -51,7 +51,6 @@ Alternatively you can require mediaQuery.js with AMD.
 
 ## Usage JS
 
-### register you callbacks
 
     mediaQuery.onEnter('mobile tablet', function(querry){
       console.log(querry);
