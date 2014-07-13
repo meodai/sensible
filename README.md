@@ -1,6 +1,6 @@
 # sensible
 
-Sensible is a toolset of SCSS/CSS and JS that handles responsiveness as painless as possible
+With `Sensible` you can maintain your media-queries where they belong; in your SASS/SCSS and make them available with the same name space in your JS without polluting your HTML. 
 
 Demo: http://codepen.io/meodai/pen/orfvs?editors=011
 
