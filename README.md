@@ -65,11 +65,11 @@ Alternatively you can require mediaQuery.js with AMD.
     },true);
 
     if ( mediaQuery.is('mobile') ){
-      console.log('I'm a mobile)
+      console.log("I'm a mobile")
     }
 
     if ( mediaQuery.isNot('mobile') ){
-      console.log('I'm a mobile)
+      console.log("I'm a not a mobile")
     }
 
 ## Grid !Optional
