@@ -5,6 +5,7 @@ Sensible is a toolset of SCSS/CSS and JS that handles responsiveness as painless
 Demo: http://codepen.io/meodai/pen/orfvs?editors=011
 
 ## Setup
+`bower install sensible --save-dev`
 
 import **_mediaqueries.scss** to you main scss/sass file.
 	
