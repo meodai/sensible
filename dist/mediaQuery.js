@@ -19,9 +19,10 @@
 
     todo:
       - optional debounce
+      - make AMD optional
 */
 
-(function(){
+define(['jquery'],function($){
   'use strict';
 
   var mediaQuery,
@@ -130,13 +131,5 @@
     }
   };
 
-  //optionaly expose mediaQuery as AMD module
-  if (typeof define === 'function' && define.amd) {
-    define('mediaQuery', ['jquery'], function() {
-      return mediaQuery;
-    });
-  } else{
-    window.mediaQuery = mediaQuery;
-  }
-
-})();
+  return mediaQuery;
+});
