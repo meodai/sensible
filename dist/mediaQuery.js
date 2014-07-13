@@ -19,10 +19,17 @@
 
     todo:
       - optional debounce
-      - make AMD optional
 */
 
-define(['jquery'],function($){
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else {
+        // Browser globals
+        root.mediaQuery = factory(root.$);
+    }
+}(this, function ($) {
   'use strict';
 
   var mediaQuery,
@@ -132,4 +139,4 @@ define(['jquery'],function($){
   };
 
   return mediaQuery;
-});
+}));
