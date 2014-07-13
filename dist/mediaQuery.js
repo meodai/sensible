@@ -18,7 +18,7 @@
     }
 
     todo:
-      - debounce
+      - optional debounce
 */
 (function(){
   'use strict';
