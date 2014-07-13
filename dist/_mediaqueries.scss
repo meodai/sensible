@@ -17,7 +17,7 @@ $breakpoints: (
   "retina"              : "only screen and (-webkit-min-device-pixel-ratio : 1.5), only screen and (min-device-pixel-ratio : 1.5)",
   "highres"             : "print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)",
   "print"               : "print"
-);
+) !default;
 
 // adapted snipped form Hugo Giraudel: http://www.sitepoint.com/cross-media-query-extend-sass/
 @mixin breakpoint($breakpoint) {
