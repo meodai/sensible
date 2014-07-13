@@ -2,6 +2,8 @@
 
 Sensible is a toolset of SCSS/CSS and JS that handles responsiveness as painless as possible
 
+Demo: http://codepen.io/meodai/pen/orfvs?editors=011
+
 ## Setup
 
 import **_mediaqueries.scss** to you main scss/sass file.
