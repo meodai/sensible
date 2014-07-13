@@ -19,6 +19,9 @@
 
     todo:
       - optional debounce
+      - use: window.matchMedia('all').addListener
+        https://github.com/paulirish/matchMedia.js/blob/master/matchMedia.addListener.js
+      - include Modernizr fallback .mq() for non supported browsers
 */
 
 (function (root, factory) {
