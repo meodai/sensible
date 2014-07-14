@@ -25,12 +25,12 @@
     .#{$slug}grid {
         @if $modern {
             font-size: 0.1px;
-            margin-right: -$gutter;
         } @else {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
         }
+        margin-right: -$gutter;
     }
     %#{$slug}grid-cell,
     .#{$slug}grid-cell {
