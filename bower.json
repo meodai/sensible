@@ -2,9 +2,8 @@
     "name": "sensible",
     "version": "0.2.0",
     "main": [
-        "dist/mediaQuery.js",
-        "dist/_grid.scss",
-        "dist/_mediaqueries.scss"
+        "mediaQuery.js",
+        "_mediaqueries.scss"
     ],
     "ignore": [
         "source",
