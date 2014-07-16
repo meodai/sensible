@@ -33,7 +33,6 @@ $breakpoints: (
       @content;
     }
   }
-
   // If `$breakpoint` doesn't exist in `$breakpoints`,
   // Warn the user and do nothing
   @else {
@@ -51,6 +50,7 @@ $mediaJSON: '{';
 $mediaJSON: str-slice( $mediaJSON, 1, str-length($mediaJSON) - 1);
 $mediaJSON: $mediaJSON + '}';
 
+// an element with this class will be created with JS in order to parse the JSON content
 .js-breakpoint {
   content: "#{$mediaJSON}";
 }
