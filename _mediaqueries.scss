@@ -1,0 +1,56 @@
+/*
+  usage:
+
+  @include breakpoint(mobile) {
+    margin: 20px;
+  }
+*/
+
+$breakpoints: (
+  "mobile-portrait"     : "only screen and (max-width:400px)",
+  "mobile"              : "only screen and (max-width:740px)",
+  "not-mobile"          : "only screen and (min-width:741px)",
+  "tablet-portrait"     : "only screen and (max-width:850px)",
+  "tablet"              : "only screen and (max-width:1050px)",
+  "not-tablet"          : "only screen and (min-width:1051px)",
+  "desktop"             : "only screen and (min-width:1051px)",
+  "retina"              : "only screen and (-webkit-min-device-pixel-ratio : 1.5), only screen and (min-device-pixel-ratio : 1.5)",
+  "highres"             : "print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)",
+  "print"               : "print"
+) !default;
+
+// adapted snipped form Hugo Giraudel: http://www.sitepoint.com/cross-media-query-extend-sass/
+@mixin breakpoint($breakpoint) {
+  // Get the width from the keyword `$breakpoint`
+  // Or `null` if the keyword doesn't exist in `$breakpoints` map
+  $value: map-get($breakpoints, $breakpoint);
+
+  // If `$breakpoint` exists as a key in `$breakpoints`
+  @if $value != null {
+    // Open a media query block
+    @media #{$value} {
+      // Let the user dump content
+      @content;
+    }
+  }
+
+  // If `$breakpoint` doesn't exist in `$breakpoints`,
+  // Warn the user and do nothing
+  @else {
+    @warn "Invalid breakpoint `#{$breakpoint}`.";
+  }
+}
+
+// creates a json out of `$breakpoints`
+$mediaJSON: '{';
+@each $breakpoint in $breakpoints {
+    $name: nth($breakpoint, 1);
+    $value: nth($breakpoint, 2);
+    $mediaJSON: $mediaJSON + '"#{$name}":"#{$value}",' !global;
+}
+$mediaJSON: str-slice( $mediaJSON, 1, str-length($mediaJSON) - 1);
+$mediaJSON: $mediaJSON + '}';
+
+.js-breakpoint {
+  content: "#{$mediaJSON}";
+}
