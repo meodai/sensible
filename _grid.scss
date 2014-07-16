@@ -21,34 +21,38 @@
     ),
     $gridBreakpoints: "mobile-portrait" "mobile" "not-mobile" "tablet-portrait" "tablet" "not-tablet"  "print"
 ) {
+    //class that wraps a grid cols
     %#{$slug}grid,
     .#{$slug}grid {
+
         @if $modern {
-            font-size: 0.1px;
-        } @else {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
+        } @else {
+            //fixes the webkit inline-block issue
+            font-size: 0.1px;
         }
+
         margin-right: -$gutter;
+
 
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
+            //cells only have a gutter inside the grid
             padding-right: $gutter;
             @if $modern == false {
                 font-size: $base-font-size;
+            } @else {
+                display: block;
             }
         }
     }
 
     %#{$slug}grid-cell,
     .#{$slug}grid-cell {
-        @if $modern == false {
-            display: inline-block;
-            vertical-align: top;
-
-        }
-
+        display: inline-block;
+        vertical-align: top;
         box-sizing: border-box;
     }
 
