@@ -4,6 +4,10 @@
 @mixin sensibleGrid (
     $modern: false,
     $gutter: 20px,
+    $gutterModifiers: (
+        "double"            : 40px,
+        "triple"            : 60px
+    ),
     $base-font-size: 16px,
     $slug: "l-",
     $pushClasses: false,
@@ -36,6 +40,17 @@
 
         margin-right: -$gutter;
 
+        @if $gutterModifiers != false {
+            @each $gutterModifier, $newGutter in $gutterModifiers {
+               &--#{$gutterModifier} {
+                    margin-right: -$newGutter;
+                    %#{$slug}grid-cell,
+                    .#{$slug}grid-cell {
+                        padding-right: $newGutter;
+                    }
+               }
+            }
+        }
 
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
@@ -47,6 +62,14 @@
                 display: block;
             }
         }
+
+        &--gapped {
+            & > %#{$slug}grid-cell,
+            & > .#{$slug}grid-cell {
+                margin-bottom: $gutter;
+            }
+        }
+
     }
 
     %#{$slug}grid-cell,
