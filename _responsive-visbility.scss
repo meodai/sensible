@@ -1,0 +1,41 @@
+@mixin responsive-visibility ($visibility-breakpoints, $overwrite: true){
+
+  @each $breakpoint-active in $visibility-breakpoints {
+    @include breakpoint($breakpoint-active) {
+      $visibles: "";
+      $invisibles: "";
+
+      $visibles: unquote($visibles + ".is-visible-#{$breakpoint-active},");
+      $invisibles: unquote($invisibles + ".is-hidden-#{$breakpoint-active},");
+
+      @if $overwrite == true {
+        $others: getList($breakpoint-active, $visibility-breakpoints);
+        $othersRule: "";
+        @each $other in $others {
+          $invisibles: unquote($invisibles + ".is-visible-#{$other},");
+        }
+      }
+
+      #{$visibles} {
+        display: block !important;
+        visibility: visible;
+        &--inline {
+          display: inline !important;
+        }
+        &--inline-block {
+          display: inline-block !important;
+        }
+      }
+      #{$invisibles} {
+        display: none !important;
+        visibility: hidden;
+      }
+    }
+  }
+
+}
+/* exact */
+@include responsive-visibility("only-mobile" "only-tablet" "only-desktop", true);
+
+/* up */
+@include responsive-visibility("mobile" "tablet" "desktop", false);
