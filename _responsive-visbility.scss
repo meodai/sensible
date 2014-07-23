@@ -1,5 +1,38 @@
-@mixin responsive-visibility ($visibility-breakpoints, $overwrite: true){
+/**
+ * function getOthersInList
+ * @param  {[key]}  $position position in the list
+ * @param  {[type]} $list     the list
+ * @return {[list]}           other elements in the array
+ */
+@function getOthersInList($position, $list) {
 
+  $newList: ();
+  @each $item in $list {
+    @if $item != $position {
+      $newList: append($newList, $item, "comma");
+    }
+  }
+
+  @return $newList;
+
+}
+
+/**
+ * mixin responsive-visibility
+ * $visibility-breakpoints {[list]} list of breakpoints you want to interact with
+ * $overwrite {[boolean]} if set true will generate classes that overwrite what ever visibility is active on that element
+ *
+ * exact:
+ * @include responsive-visibility("only-mobile" "only-tablet" "only-desktop", true);
+ *
+ * up:
+ * @include responsive-visibility("mobile" "tablet" "desktop", false);
+ */
+@mixin responsive-visibility (
+  $visibility-breakpoints,
+  $overwrite: false,
+  $displaTypes: "inline" "inline-block"
+){
   @each $breakpoint-active in $visibility-breakpoints {
     @include breakpoint($breakpoint-active) {
       $visibles: "";
@@ -9,7 +42,7 @@
       $invisibles: unquote($invisibles + ".is-hidden-#{$breakpoint-active},");
 
       @if $overwrite == true {
-        $others: getList($breakpoint-active, $visibility-breakpoints);
+        $others: getOthersInList($breakpoint-active, $visibility-breakpoints);
         $othersRule: "";
         @each $other in $others {
           $invisibles: unquote($invisibles + ".is-visible-#{$other},");
@@ -19,11 +52,10 @@
       #{$visibles} {
         display: block !important;
         visibility: visible;
-        &--inline {
-          display: inline !important;
-        }
-        &--inline-block {
-          display: inline-block !important;
+        @each $display in $displaTypes {
+          &--#{$display} {
+            display: #{$display};
+          }
         }
       }
       #{$invisibles} {
@@ -32,10 +64,4 @@
       }
     }
   }
-
 }
-/* exact */
-@include responsive-visibility("only-mobile" "only-tablet" "only-desktop", true);
-
-/* up */
-@include responsive-visibility("mobile" "tablet" "desktop", false);
