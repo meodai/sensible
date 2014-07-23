@@ -1,20 +1,21 @@
 /**
- * function getOthersInList
- * @param  {[key]}  $position position in the list
- * @param  {[type]} $list     the list
- * @return {[list]}           other elements in the array
+ * remove  removes element from list
+ * http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
  */
-@function getOthersInList($position, $list) {
+@function remove($list, $value, $recursive: false) {
+  $result: ();
 
-  $newList: ();
-  @each $item in $list {
-    @if $item != $position {
-      $newList: append($newList, $item, "comma");
+  @for $i from 1 through length($list) {
+    @if type-of(nth($list, $i)) == list and $recursive {
+      $result: append($result, remove(nth($list, $i), $value, $recursive));
+    }
+
+    @else if nth($list, $i) != $value {
+      $result: append($result, nth($list, $i));
     }
   }
 
-  @return $newList;
-
+  @return $result;
 }
 
 /**
