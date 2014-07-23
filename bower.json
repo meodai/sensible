@@ -1,10 +1,14 @@
 {
     "name": "sensible",
-    "version": "0.2.5",
+    "version": "0.3.0",
     "main": [
         "mediaQuery.js",
         "_mediaqueries.scss"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/meodai/sensible.git"
+    },
     "ignore": [
         "source",
         "spec",
