@@ -5,6 +5,7 @@
     $modern: false,
     $gutter: 20px,
     $gutterModifiers: (
+        "no-gap"            : 0,
         "double"            : 40px,
         "triple"            : 60px
     ),
@@ -40,6 +41,17 @@
 
         margin-right: -$gutter;
 
+        %#{$slug}grid-cell,
+        .#{$slug}grid-cell {
+            //cells only have a gutter inside the grid
+            padding-right: $gutter;
+            @if $modern == false {
+                font-size: $base-font-size;
+            } @else {
+                display: block;
+            }
+        }
+
         @if $gutterModifiers != false {
             @each $gutterModifier, $newGutter in $gutterModifiers {
                &--#{$gutterModifier} {
@@ -49,17 +61,6 @@
                         padding-right: $newGutter;
                     }
                }
-            }
-        }
-
-        %#{$slug}grid-cell,
-        .#{$slug}grid-cell {
-            //cells only have a gutter inside the grid
-            padding-right: $gutter;
-            @if $modern == false {
-                font-size: $base-font-size;
-            } @else {
-                display: block;
             }
         }
 
