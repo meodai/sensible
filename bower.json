@@ -1,6 +1,6 @@
 {
     "name": "sensible",
-    "version": "0.3.0",
+    "version": "0.3.2",
     "main": [
         "mediaQuery.js",
         "_mediaqueries.scss"

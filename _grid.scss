@@ -87,7 +87,7 @@
     //includes the classes for the bereakpoints listed in $gridbreakpoints
     @each $breakpoint in $gridBreakpoints {
         @include breakpoint( $breakpoint ) {
-            @include sensibleGridClasses( $breakpoint );
+            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths );
         }
     }
 }
