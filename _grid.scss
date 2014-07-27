@@ -24,7 +24,7 @@
         "one-sixth"         : 16.666%,
         "five-sixths"       : 83.333%
     ),
-    $gridBreakpoints: "mobile-portrait" "mobile" "not-mobile" "tablet-portrait" "tablet" "not-tablet"  "print"
+    $gridBreakpoints: "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print"
 ) {
     //class that wraps a grid cols
     %#{$slug}grid,
