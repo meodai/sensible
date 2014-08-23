@@ -115,6 +115,7 @@ You can use is with the classes listed here fully configure it:
 @include sensibleGrid (
     $modern: false, // flex-box or inline-block
     $gutter: 20px,	// gutter between the col's
+    $gutterType: padding, //the gutter can be set as a padding or a margin (margin will use calc() doe)
     $base-font-size: 16px, // base-font-size only used for inline-block layout
     $slug: "l-", // slug used for generated classes
     $pushClasses: false, // do you need .l-push-one-quarter etc. classes ?
