@@ -4,6 +4,7 @@
 @mixin sensibleGrid (
     $modern: false,
     $gutter: 20px,
+    $gutterType: padding,
     $gutterModifiers: (
         "no-gap"            : 0,
         "double"            : 40px,
@@ -44,7 +45,11 @@
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
             //cells only have a gutter inside the grid
-            padding-right: $gutter;
+            @if $gutterType == padding {
+                padding-right: $gutter;
+            } @else {
+                margin-right: $gutter;
+            }
             @if $modern == false {
                 font-size: $base-font-size;
             } @else {
@@ -58,7 +63,11 @@
                     margin-right: -$newGutter;
                     %#{$slug}grid-cell,
                     .#{$slug}grid-cell {
-                        padding-right: $newGutter;
+                        @if $gutterType == padding {
+                            padding-right: $newGutter;
+                        } @else {
+                            margin-right: $newGutter;
+                        }
                     }
                }
             }
@@ -82,12 +91,12 @@
 
 
     //includes the default classes
-    @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths);
+    @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter);
 
     //includes the classes for the bereakpoints listed in $gridbreakpoints
     @each $breakpoint in $gridBreakpoints {
         @include breakpoint( $breakpoint ) {
-            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths );
+            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter);
         }
     }
 }
@@ -102,7 +111,9 @@
         "one-half"          : 50%,
         "one-quarter"       : 25%,
         "three-quarters"    : 75%
-    )
+    ),
+    $gutterType: padding,
+    $gutter: 20px
 ) {
     $deviceString: null;
 
@@ -114,7 +125,11 @@
     @each $gridWidth, $width in $gridWidths {
         %#{$slug}#{$deviceString}#{$gridWidth},
         .#{$slug}#{$deviceString}#{$gridWidth} {
-            width: $width;
+            @if $gutterType == padding {
+                width: $width;
+            } @else {
+                width: calc(#{$width} - #{$gutter});
+            }
         }
         @if $pushClasses {
             %#{$slug}push-#{$deviceString}#{$gridWidth},
