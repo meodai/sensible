@@ -71,7 +71,7 @@
 
       $.each(callbacks, function () {
         // used for the callOnRegister option in addEvent
-        if (callback && callback !== this) {
+        if (callback && callback !== this.callback) {
           return;
         }
 
