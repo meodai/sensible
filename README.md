@@ -6,7 +6,7 @@
 ## Setup
 
 Install with bower / Dowdload or checkout from github
-```bash
+```shell
 bower install sensible --save-dev
 ```
 
