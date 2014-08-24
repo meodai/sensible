@@ -45,11 +45,8 @@
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
             //cells only have a gutter inside the grid
-            @if $gutterType == padding {
-                padding-right: $gutter;
-            } @else {
-                margin-right: $gutter;
-            }
+            #{$gutterType}-right: $gutter;
+
             @if $modern == false {
                 font-size: $base-font-size;
             } @else {
@@ -63,11 +60,7 @@
                     margin-right: -$newGutter;
                     %#{$slug}grid-cell,
                     .#{$slug}grid-cell {
-                        @if $gutterType == padding {
-                            padding-right: $newGutter;
-                        } @else {
-                            margin-right: $newGutter;
-                        }
+                        #{$gutterType}-right: $newGutter;
                     }
                }
             }
@@ -76,7 +69,7 @@
         &--gapped {
             & > %#{$slug}grid-cell,
             & > .#{$slug}grid-cell {
-                margin-bottom: $gutter;
+                #{$gutterType}-bottom: $gutter;
             }
         }
 
@@ -88,7 +81,6 @@
         vertical-align: top;
         box-sizing: border-box;
     }
-
 
     //includes the default classes
     @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter);
@@ -125,11 +117,7 @@
     @each $gridWidth, $width in $gridWidths {
         %#{$slug}#{$deviceString}#{$gridWidth},
         .#{$slug}#{$deviceString}#{$gridWidth} {
-            @if $gutterType == padding {
-                width: $width;
-            } @else {
-                width: calc(#{$width} - #{$gutter});
-            }
+            width: $width;
         }
         @if $pushClasses {
             %#{$slug}push-#{$deviceString}#{$gridWidth},
@@ -138,4 +126,17 @@
             }
         }
     }
+
+    @if $gutterType == margin {
+        @each $gridWidth, $width in $gridWidths {
+            %#{$slug}grid,
+            .#{$slug}grid {
+                & > %#{$slug}#{$deviceString}#{$gridWidth},
+                & > .#{$slug}#{$deviceString}#{$gridWidth} {
+                    width: calc(#{$width} - #{$gutter});
+                }
+            }
+        }
+    }
+
 }
