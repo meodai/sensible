@@ -52,9 +52,9 @@
   // callbacks for enter and leave
   events = {};
 
-  // parses the JSON given fromt the CSS
+  // parses the JSON given from the CSS (and removes quotes: http://css-tricks.com/making-sass-talk-to-javascript-with-json/ )
   parseJSONString = function (querryJSONString) {
-    return $.parseJSON(querryJSONString.substring(1, querryJSONString.length-1) );
+    return $.parseJSON( querryJSONString.replace(/^['"]+|\s+|\\|(;\s?})+|['"]$/g, '') );
   };
 
   // checks if queryKey exists in querries and if matchMedia matches
