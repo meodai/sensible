@@ -1,20 +1,33 @@
 // column layouts
 // http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
 
+/*!
+ * 0. false will set the grid elements to inline-block if true flexbox
+ * 1. size of the gutter between the cols
+ * 2. the gutter between the columns can be padding or margin
+ * 3. the gutter can be on the right or the left side of every col
+ * 4. Provides additional classes for the grid in order have different available gutter sizes
+ * 5. Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
+ * 6. Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
+ * 7. If set to true, one push class per with will be available (margin-left)
+ * 8. Generated col names & withs
+ * 9. Breakpoints used in the grid (ideally reduced to a minimum)
+ */
+
 @mixin sensibleGrid (
-    $modern: false,
-    $gutter: 20px,
-    $gutterType: padding,
-    $gutterDirection: "right",
-    $gutterModifiers: (
+    $modern: false,                     /* [0] */
+    $gutter: 20px,                      /* [1] */
+    $gutterType: padding,               /* [2] */
+    $gutterDirection: "right",          /* [3] */
+    $gutterModifiers: (                 /* [4] */
         "no-gap"            : 0,
         "double"            : 40px,
         "triple"            : 60px
     ),
-    $base-font-size: 16px,
-    $slug: "l-",
-    $pushClasses: false,
-    $gridWidths: (
+    $base-font-size: 16px,              /* [5] */
+    $slug: "l-",                        /* [6] */
+    $pushClasses: false,                /* [7] */
+    $gridWidths: (                      /* [8] */
         "one-whole"         : 100%,
         "one-half"          : 50%,
         "one-quarter"       : 25%,
@@ -26,7 +39,7 @@
         "one-sixth"         : 16.666%,
         "five-sixths"       : 83.333%
     ),
-    $gridBreakpoints: "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print"
+    $gridBreakpoints: "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print" /* [9] */
 ) {
     //class that wraps a grid cols
     %#{$slug}grid,
