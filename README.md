@@ -1,16 +1,16 @@
 # sensible
 
-`Sensible` maintains your media-queries where they belong; in your SASS/SCSS and makes them available with the same name space in your JS without polluting your HTML. Check out the [demo](http://codepen.io/meodai/pen/kzwAy?editors=011).
+`Sensible` maintains your media-queries where they belong – in your SASS/SCSS. It also makes them available with the same name space in your JS without polluting your HTML. Check out the [demo](http://codepen.io/meodai/pen/kzwAy?editors=011).
 
 
 ## Setup
 
-Install with bower / Dowdload or checkout from github
+Install with bower / Download or checkout from Github
 ```shell
 bower install sensible --save-dev
 ```
 
-Import **_mediaqueries.scss** to you main scss/sass file.
+Import **_mediaqueries.scss** into your main scss/sass file.
 
 ```scss
 @import 'mediaqueries';
@@ -32,7 +32,7 @@ require(['lib/browser/mediaQuery'], function ( mediaQuery ) {})
 ## Usage SCSS
 
 ### Set up your breakpoints
-The variable `$breakpoints` must be defined before you import madiaqueries.
+The variable `$breakpoints` must be defined before you import mediaqueries.
 
 ```scss
 $breakpoints: (
@@ -66,7 +66,7 @@ body {
 
 
 ## Usage JS
-All the defined breakpoints are avalibe 
+All the defined breakpoints are available 
 
 ```javascript
 // mediaQuery.onEnter / onLeave (querryString,callback,callOnRegister)
@@ -101,7 +101,7 @@ It provides a lightweight, flexible and responsive grid based on sensible. The c
 
 Wrap these elements in an element with the class `.l-grid`. Check out the [demo](http://codepen.io/meodai/pen/kzwAy?editors=011) .
 
-then best thing is, that they work like you would expect to:
+The best thing is that they work like you'd expect them to:
 
 ```css
 .l-one-whole { width: 100% }
@@ -109,7 +109,7 @@ then best thing is, that they work like you would expect to:
 //etc..
 ```
 
-You can use is with the classes listed here fully configure it:
+You can use it with the classes listed here to fully configure it:
 
 ```scss
 @include sensibleGrid (
@@ -131,7 +131,7 @@ You can use is with the classes listed here fully configure it:
         "one-sixth"         : 16.666%,
         "five-sixths"       : 83.333%
     ),
-    $gridBreakpoints: "mobile-portrait" "mobile" "not-mobile" "tablet-portrait" "tablet" "not-tablet"  "print" //only include the breakpoints you use here to avoid a bloated css
+    $gridBreakpoints: "mobile-portrait" "mobile" "not-mobile" "tablet-portrait" "tablet" "not-tablet"  "print" // only include the breakpoints you use here to avoid a bloated css
 )
 ```
 
@@ -150,11 +150,9 @@ Similar to [Twitter Bootstrap](http://getbootstrap.com/2.3.2/scaffolding.html#re
 )
 ```
 
-- `$visibility-breakpoints` is a list of you breakpoints you want to include, make sure to they have the
-same names as in `$breakpoints`
+- `$visibility-breakpoints` is a list of you breakpoints you want to include, make sure to they have the same names as in `$breakpoints`
 
-- `$overwrite` by default, the mixin generates classes that just show or hide an elements, it will be up to you,
-to show or hide them initially. If `$overwrite` set to true. The mixin will take care for the hiding for you.
+- `$overwrite` by default the mixin generates classes that just show or hide any elements, it will be up to you to show or hide them initially. If `$overwrite` is set to true, the mixin will take care of the hiding for you.
 
 Example with `$overwrite:true` :
 
