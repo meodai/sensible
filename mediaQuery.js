@@ -54,7 +54,7 @@
 
   // parses the JSON given from the CSS
   parseJSONString = function (querryJSONString) {
-    return JSON.parse( querryJSONString.replace(/^['"]+|\\|(;\s?})+|['"]$/g, '') );
+    return JSON.parse( querryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '') );
   };
 
   // checks if queryKey exists in querries and if matchMedia matches
@@ -120,8 +120,8 @@
   $ref = $('<div />', {class:'js-breakpoint', css:{'display': 'none'}});
   $ref.appendTo($('body'));
 
-  //get the json from the css
-  querryJSONString = $ref.css('content');
+  //get the json from the css, IE does not support having content on non :after elements so we use font-family
+  querryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
 
   // parse the the json from the css
   querries = parseJSONString(querryJSONString);
