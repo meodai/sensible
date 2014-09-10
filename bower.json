@@ -1,6 +1,6 @@
 {
     "name": "sensible",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "main": [
         "mediaQuery.js",
         "_mediaqueries.scss"
@@ -9,6 +9,14 @@
         "type": "git",
         "url": "git://github.com/meodai/sensible.git"
     },
+    "keywords": [
+        "grids",
+        "layout",
+        "grid",
+        "system",
+        "skeleton",
+        "SMACSS"
+    ],
     "ignore": [
         "source",
         "spec",

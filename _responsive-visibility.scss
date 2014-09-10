@@ -28,7 +28,7 @@
 @mixin responsive-visibility (
   $visibility-breakpoints,
   $overwrite: false,
-  $displaTypes: "inline" "inline-block"
+  $displayTypes: "inline" "inline-block"
 ){
   @each $breakpoint-active in $visibility-breakpoints {
     @include breakpoint($breakpoint-active) {
@@ -49,7 +49,7 @@
       #{$visibles} {
         display: block !important;
         visibility: visible;
-        @each $display in $displaTypes {
+        @each $display in $displayTypes {
           &--#{$display} {
             display: #{$display};
           }
