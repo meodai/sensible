@@ -12,6 +12,7 @@
  * 7. If set to true, one push class per with will be available (margin-left)
  * 8. Generated col names & withs
  * 9. Breakpoints used in the grid (ideally reduced to a minimum)
+ * 10. To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
  */
 
 @mixin sensibleGrid (
@@ -20,7 +21,7 @@
     $gutterType: padding,               /* [2] */
     $gutterDirection: "right",          /* [3] */
     $gutterModifiers: (                 /* [4] */
-        "no-gap"            : 0,
+        "no-gap"            : 0px,
         "double"            : 40px,
         "triple"            : 60px
     ),
@@ -39,8 +40,15 @@
         "one-sixth"         : 16.666%,
         "five-sixths"       : 83.333%
     ),
-    $gridBreakpoints: "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print" /* [9] */
+    $gridBreakpoints: "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print", /* [9] */
+    $rounding: 0.009%                   /* [10] */
 ) {
+
+    //rounding is not an issue with flexbox
+    @if $modern {
+        $rounding: 0;
+    }
+
     //class that wraps a grid cols
     %#{$slug}grid,
     .#{$slug}grid {
@@ -55,6 +63,7 @@
         }
 
         margin-#{$gutterDirection}: -$gutter;
+        margin-#{$gutterDirection}: calc( -#{$gutter} + #{-1px} );
 
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
@@ -72,6 +81,7 @@
             @each $gutterModifier, $newGutter in $gutterModifiers {
                &--#{$gutterModifier} {
                     margin-#{$gutterDirection}: -$newGutter;
+                    margin-#{$gutterDirection}: calc( -#{$newGutter} + #{-1px} );
                     %#{$slug}grid-cell,
                     .#{$slug}grid-cell {
                         #{$gutterType}-#{$gutterDirection}: $newGutter;
@@ -97,12 +107,12 @@
     }
 
     //includes the default classes
-    @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter);
+    @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding);
 
     //includes the classes for the bereakpoints listed in $gridbreakpoints
     @each $breakpoint in $gridBreakpoints {
         @include breakpoint( $breakpoint ) {
-            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter);
+            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding);
         }
     }
 }
@@ -119,7 +129,8 @@
         "three-quarters"    : 75%
     ),
     $gutterType: padding,
-    $gutter: 20px
+    $gutter: 20px,
+    $rounding: 0
 ) {
     $deviceString: null;
 
@@ -129,6 +140,9 @@
 
     // loops the $gridWiths map
     @each $gridWidth, $width in $gridWidths {
+
+        $width: $width / 10% * (10% - $rounding);
+
         %#{$slug}#{$deviceString}#{$gridWidth},
         .#{$slug}#{$deviceString}#{$gridWidth} {
             width: $width;
@@ -143,6 +157,7 @@
 
     @if $gutterType == margin {
         @each $gridWidth, $width in $gridWidths {
+            $width: $width / 10% * (10% - $rounding);
             %#{$slug}grid,
             .#{$slug}grid {
                 & > %#{$slug}#{$deviceString}#{$gridWidth},
@@ -152,5 +167,4 @@
             }
         }
     }
-
 }
