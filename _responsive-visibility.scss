@@ -13,7 +13,6 @@
   @return $newList;
 
 }
-
 /**
  * mixin responsive-visibility
  * $visibility-breakpoints {[list]} list of breakpoints you want to interact with
@@ -39,7 +38,7 @@
       $invisibles: unquote($invisibles + ".is-hidden-#{$breakpoint-active},");
 
       @if $overwrite == true {
-        $others: getOthersInList($breakpoint-active, $visibility-breakpoints);
+        $others: remove($breakpoint-active, $visibility-breakpoints);
         $othersRule: "";
         @each $other in $others {
           $invisibles: unquote($invisibles + ".is-visible-#{$other},");
