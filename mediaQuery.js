@@ -116,12 +116,16 @@
     callEvents();
   });
 
-  //creationg a dom element to read the content set by the CSS
-  $ref = $('<div />', {class:'js-breakpoint', css:{'display': 'none'}});
+  //creating a dom element to read the content set by the CSS
+  $ref = $("<div />", {'class':"js-breakpoint", 'css':{'display': "none"}});
   $ref.appendTo($('body'));
 
   //get the json from the css, IE does not support having content on non :after elements so we use font-family
-  querryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
+  if($ref.css('content')){
+    querryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
+  }else{
+    querryJSONString = $ref.css('font-family');
+  }
 
   // parse the the json from the css
   querries = parseJSONString(querryJSONString);
