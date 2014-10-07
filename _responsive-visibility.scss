@@ -57,6 +57,11 @@
       #{$invisibles} {
         display: none !important;
         visibility: hidden;
+        @each $display in $displayTypes {
+          &--#{$display} {
+            display: none !important;
+          }
+        }
       }
     }
   }
