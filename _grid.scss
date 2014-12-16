@@ -82,6 +82,13 @@
                &--#{$gutterModifier} {
                     margin-#{$gutterDirection}: -$newGutter;
                     margin-#{$gutterDirection}: calc( -#{$newGutter} + #{-1px} );
+                    
+                    @if $modern == false {
+                        font-size: $base-font-size;
+                    } @else {
+                        display: block;
+                    }
+                    
                     %#{$slug}grid-cell,
                     .#{$slug}grid-cell {
                         #{$gutterType}-#{$gutterDirection}: $newGutter;
