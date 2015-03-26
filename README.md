@@ -12,7 +12,7 @@ bower install sensible --save-dev
 
 Import **_mediaqueries.scss** into your main scss/sass file.
 
-```scss
+```sass
 @import 'mediaqueries';
 ```
 
@@ -34,9 +34,9 @@ require(['lib/browser/mediaQuery'], function ( mediaQuery ) {})
 ### Set up your breakpoints
 The variable `$breakpoints` must be defined before you import mediaqueries.
 
-```scss
+```sass
 $breakpoints: (
-	"mobile"              : "only screen and (max-width:740px)",
+    "mobile"              : "only screen and (max-width:740px)",
     "tablet"              : "only screen and (max-width:1050px)",
     "desktop"             : "only screen and (min-width:1051px)",
     "print"               : "print"
@@ -45,7 +45,7 @@ $breakpoints: (
 
 ### Use the `breakpoint([device])` mixin
 
-```scss
+```sass
 body {
     padding: 40px;
 }
@@ -111,7 +111,7 @@ The best thing is that they work like you'd expect them to:
 
 You can use it with the classes listed here to fully configure it:
 
-```scss
+```sass
 @include sensibleGrid (
     $modern: false, // flex-box or inline-block
     $gutter: 20px,	// gutter between the col's
@@ -142,7 +142,7 @@ This mixin generates visibility classes in order to hide or show elements on spe
 Similar to [Twitter Bootstrap](http://getbootstrap.com/2.3.2/scaffolding.html#responsive).
 `_responsive-visbility.scss` can be included optionally. `@import 'responsive-visibility';` and called like this: `@include sensibleGrid()`
 
-```scss
+```sass
 @include responsive-visibility(
   $visibility-breakpoints,
   $overwrite: false,
@@ -156,7 +156,7 @@ Similar to [Twitter Bootstrap](http://getbootstrap.com/2.3.2/scaffolding.html#re
 
 Example with `$overwrite:true` :
 
-```scss
+```sass
 @include responsive-visibility("only-mobile" "only-tablet", true);
 ```
 
