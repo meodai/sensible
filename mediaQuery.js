@@ -38,7 +38,7 @@
 
   var mediaQuery,
   // vars
-      nameSpace, querryJSONString, queries, events, $ref,
+      nameSpace, queryJSONString, queries, events, $ref,
   // functions
       parseJSONString, addEvent, match, callEvents;
 
@@ -53,8 +53,8 @@
   events = {};
 
   // parses the JSON given from the CSS
-  parseJSONString = function (querryJSONString) {
-    return JSON.parse( querryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '') );
+  parseJSONString = function (queryJSONString) {
+    return JSON.parse( queryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '') );
   };
 
   // checks if queryKey exists in queries and if matchMedia matches
@@ -122,13 +122,13 @@
 
   //get the json from the css, IE does not support having content on non :after elements so we use font-family
   if($ref.css('content')){
-    querryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
+    queryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
   }else{
-    querryJSONString = $ref.css('font-family');
+    queryJSONString = $ref.css('font-family');
   }
 
   // parse the the json from the css
-  queries = parseJSONString(querryJSONString);
+  queries = parseJSONString(queryJSONString);
 
   // expose main functions
   mediaQuery = {
