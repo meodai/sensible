@@ -38,7 +38,7 @@
 
   var mediaQuery,
   // vars
-      nameSpace, querryJSONString, querries, events, $ref,
+      nameSpace, querryJSONString, queries, events, $ref,
   // functions
       parseJSONString, addEvent, match, callEvents;
 
@@ -47,7 +47,7 @@
 
   // will contain all the media queries:
   // {'mobile': 'only screen and (min-width: 500px)', ...}
-  querries = {};
+  queries = {};
 
   // callbacks for enter and leave
   events = {};
@@ -57,9 +57,9 @@
     return JSON.parse( querryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '') );
   };
 
-  // checks if queryKey exists in querries and if matchMedia matches
+  // checks if queryKey exists in queries and if matchMedia matches
   match = function (queryKey) {
-    return window.matchMedia && querries.hasOwnProperty(queryKey) && window.matchMedia( querries[queryKey] ).matches;
+    return window.matchMedia && queries.hasOwnProperty(queryKey) && window.matchMedia( queries[queryKey] ).matches;
   };
 
   // triggers the callbacks and updates the current matches
@@ -128,7 +128,7 @@
   }
 
   // parse the the json from the css
-  querries = parseJSONString(querryJSONString);
+  queries = parseJSONString(querryJSONString);
 
   // expose main functions
   mediaQuery = {
