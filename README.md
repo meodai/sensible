@@ -28,6 +28,8 @@ Alternatively you can require mediaQuery.js with AMD.
 require(['lib/browser/mediaQuery'], function ( mediaQuery ) {})
 ```
 
+Note: If you support IE9 and below, make sure you include [matchMedia.js](https://github.com/paulirish/matchMedia.js). If you use bower, this should already be in your ```bower_components``` folder as it is a sensible dependency.
+
 
 ## Usage SCSS
 
