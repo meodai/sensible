@@ -59,7 +59,7 @@
 
   // checks if queryKey exists in querries and if matchMedia matches
   match = function (queryKey) {
-    return querries.hasOwnProperty(queryKey) && window.matchMedia( querries[queryKey] ).matches;
+    return window.matchMedia && querries.hasOwnProperty(queryKey) && window.matchMedia( querries[queryKey] ).matches;
   };
 
   // triggers the callbacks and updates the current matches
