@@ -1,12 +1,12 @@
 /*
     Usage:
 
-    mediaQuery.onEnter('mobile tablet', function(querry){
-      console.log(querry);
+    mediaQuery.onEnter('mobile tablet', function(query){
+      console.log(query);
     },true);
 
-    mediaQuery.onLeave('mobile', function(querry){
-      console.log(querry);
+    mediaQuery.onLeave('mobile', function(query){
+      console.log(query);
     },true);
 
     if ( mediaQuery.is('mobile') ){
@@ -38,7 +38,7 @@
 
   var mediaQuery,
   // vars
-      nameSpace, querryJSONString, querries, events, $ref,
+      nameSpace, queryJSONString, queries, events, $ref,
   // functions
       parseJSONString, addEvent, match, callEvents;
 
@@ -47,19 +47,19 @@
 
   // will contain all the media queries:
   // {'mobile': 'only screen and (min-width: 500px)', ...}
-  querries = {};
+  queries = {};
 
   // callbacks for enter and leave
   events = {};
 
   // parses the JSON given from the CSS
-  parseJSONString = function (querryJSONString) {
-    return JSON.parse( querryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '') );
+  parseJSONString = function (queryJSONString) {
+    return JSON.parse( queryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '') );
   };
 
-  // checks if queryKey exists in querries and if matchMedia matches
+  // checks if queryKey exists in queries and if matchMedia matches
   match = function (queryKey) {
-    return querries.hasOwnProperty(queryKey) && window.matchMedia( querries[queryKey] ).matches;
+    return queries.hasOwnProperty(queryKey) && window.matchMedia( queries[queryKey] ).matches;
   };
 
   // triggers the callbacks and updates the current matches
@@ -122,13 +122,13 @@
 
   //get the json from the css, IE does not support having content on non :after elements so we use font-family
   if($ref.css('content')){
-    querryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
+    queryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
   }else{
-    querryJSONString = $ref.css('font-family');
+    queryJSONString = $ref.css('font-family');
   }
 
   // parse the the json from the css
-  querries = parseJSONString(querryJSONString);
+  queries = parseJSONString(queryJSONString);
 
   // expose main functions
   mediaQuery = {
