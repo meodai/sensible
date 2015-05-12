@@ -71,14 +71,14 @@ body {
 All the defined breakpoints are available 
 
 ```javascript
-// mediaQuery.onEnter / onLeave (querryString,callback,callOnRegister)
+// mediaQuery.onEnter / onLeave (queryString,callback,callOnRegister)
 
-mediaQuery.onEnter('mobile tablet', function(querry){
-  console.log(querry);
+mediaQuery.onEnter('mobile tablet', function(query){
+  console.log(query);
 },true);
 
-mediaQuery.onLeave('mobile', function(querry){
-  console.log(querry);
+mediaQuery.onLeave('mobile', function(query){
+  console.log(query);
 },true);
 
 if ( mediaQuery.is('mobile') ){
