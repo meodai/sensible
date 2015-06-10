@@ -54,7 +54,16 @@
 
   // parses the JSON given from the CSS
   parseJSONString = function (queryJSONString) {
-    return JSON.parse( queryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '') );
+    var queriesObject = {};
+    queryJSONString = queryJSONString.replace(/^['"]+|\\|(;\s?)+|['"]$/g, '');
+
+    try{
+        queriesObject = JSON.parse(queryJSONString);
+    }catch(e){
+        $.error('Sensible mediaQuery error. The query string in the DOM was not a JSON object: ' + queryJSONString);
+    }
+
+    return queriesObject;
   };
 
   // checks if queryKey exists in queries and if matchMedia matches
