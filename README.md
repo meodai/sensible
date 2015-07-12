@@ -115,7 +115,7 @@ You can use it with the classes listed here to fully configure it:
 
 ```sass
 @include sensibleGrid (
-    $modern: false, // flex-box or inline-block
+    $modern: false, // flex-box or inline-block (consider using autoprefixer if you use flex-box)
     $gutter: 20px,	// gutter between the col's
     $gutterType: padding, //the gutter can be set as a padding or a margin (margin will use calc() doe)
     $base-font-size: 16px, // base-font-size only used for inline-block layout
