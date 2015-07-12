@@ -2,7 +2,7 @@
 // http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
 
 /*!
- * 0. false will set the grid elements to inline-block if true flexbox
+ * 0. false will set the grid elements to inline-block if true flexbox (consider using autoprefixer for better bowser support)
  * 1. size of the gutter between the cols
  * 2. the gutter between the columns can be padding or margin
  * 3. the gutter can be on the right or the left side of every col
