@@ -1,0 +1,33 @@
+{
+  "name": "sensible",
+  "version": "0.5.4",
+  "description": "Maintains media-queries where they belong; in the SASS/SCSS and make them available with the same name space in JS without polluting the HTML",
+  "browser": "mediaQuery.js",
+  "main": "mediaQuery.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meodai/sensible.git"
+  },
+  "keywords": [
+    "css",
+    "scss",
+    "responsive",
+    "responsiveness",
+    "mediaqueries",
+    "mediaquery",
+    "matchmedia"
+  ],
+  "author": "meodai <meodai@gmail.com> (https://github.com/meodai/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meodai/sensible/issues"
+  },
+  "homepage": "https://github.com/meodai/sensible#readme",
+  "dependencies": {
+      "matchmedia": "^0.1.2",
+      "jquery": ">=1.10.2"
+  }
+}
