@@ -1,3 +1,9 @@
+@mixin gutter ($gutterDirection, $gutter, $gutterType: margin) {
+    @if $gutter > 0 {
+        #{$gutterType}-#{$gutterDirection}: -$gutter;
+        #{$gutterType}-#{$gutterDirection}: calc( -#{$gutter} + #{-1px} );
+    }
+}
 // column layouts
 // http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
 
@@ -62,8 +68,7 @@
             font-size: 0.1px;
         }
 
-        margin-#{$gutterDirection}: -$gutter;
-        margin-#{$gutterDirection}: calc( -#{$gutter} + #{-1px} );
+        @mixin gutter ($gutterDirection, $gutter, $gutterType: margin);
 
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
