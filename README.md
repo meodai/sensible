@@ -1,3 +1,5 @@
+<img id="logo" align="right" height="60" src="http://imgh.us/noun_3400_cc.svg">
+
 # sensible
 
 `Sensible` maintains your media-queries where they belong – in your SASS/SCSS. It also makes them available with the same name space in your JS without polluting your HTML. Check out the [demo](http://codepen.io/meodai/pen/kzwAy?editors=011).
@@ -208,3 +210,5 @@ Will generate:
 }
 //etc...
 ```
+### Logo:
+lego by jon trillana from the Noun Project
