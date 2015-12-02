@@ -68,7 +68,7 @@
             font-size: 0.1px;
         }
 
-        @mixin gutter ($gutterDirection, $gutter, $gutterType: margin);
+        @include gutter ($gutterDirection, $gutter, $gutterType: margin);
 
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
