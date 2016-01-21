@@ -1,6 +1,6 @@
 {
   "name": "sensible",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Maintains media-queries where they belong; in the SASS/SCSS and make them available with the same name space in JS without polluting the HTML",
   "browser": "mediaQuery.js",
   "main": "mediaQuery.js",
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/meodai/sensible#readme",
   "dependencies": {
-      "matchmedia": "^0.1.2",
-      "jquery": ">=1.10.2"
+    "matchmedia": "^0.1.2",
+    "jquery": ">=1.10.2"
   }
 }
