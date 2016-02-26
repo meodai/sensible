@@ -140,7 +140,7 @@
     $deviceString: null;
 
     @if $device {
-        $deviceString: "#{$device}-";
+        $deviceString: "--#{$device}";
     }
 
     // loops the $gridWiths map
@@ -148,13 +148,13 @@
 
         $width: $width / 10% * (10% - $rounding);
 
-        %#{$slug}#{$deviceString}#{$gridWidth},
-        .#{$slug}#{$deviceString}#{$gridWidth} {
+        %#{$slug}#{$gridWidth}#{$deviceString},
+        .#{$slug}#{$gridWidth}#{$deviceString} {
             width: $width;
         }
         @if $pushClasses {
-            %#{$slug}push-#{$deviceString}#{$gridWidth},
-            .#{$slug}push-#{$deviceString}#{$gridWidth}{
+            %#{$slug}push-#{$gridWidth}#{$deviceString},
+            .#{$slug}push-#{$gridWidth}#{$deviceString}{
                 margin-left: $width;
             }
         }
@@ -165,8 +165,8 @@
             $width: $width / 10% * (10% - $rounding);
             %#{$slug}grid,
             .#{$slug}grid {
-                & > %#{$slug}#{$deviceString}#{$gridWidth},
-                & > .#{$slug}#{$deviceString}#{$gridWidth} {
+                & > %#{$slug}#{$gridWidth}#{$deviceString},
+                & > .#{$slug}#{$gridWidth}#{$deviceString} {
                     width: calc(#{$width} - #{$gutter});
                 }
             }
