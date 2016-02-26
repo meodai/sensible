@@ -7,9 +7,10 @@
 
 ## Setup
 
-Install with bower / Download or checkout from Github
+Install with npm / Download or checkout from Github
+
 ```shell
-bower install sensible --save-dev
+npm install sensible --save-dev
 ```
 
 Import **_mediaqueries.scss** into your main scss/sass file.
