@@ -164,7 +164,7 @@
     @if $gutterType == margin {
         @each $gridWidth, $width in $gridWidths {
             $width: $width / 10% * (10% - $rounding);
-            @if $gutter > 0 and not $modern {
+            @if $gutter > 0 {
                 $width: calc(#{$width} - #{$gutter});
             }
             %#{$slug}grid,
