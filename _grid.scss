@@ -137,9 +137,9 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
     }
 
     @if $sensible-gutter-type == margin {
-        @each $gridWidth, $width in $gridWidths {
+        @each $gridWidth, $width in $sensible-grid-widths {
             $width: $width / 10% * (10% - $sensible-rounding);
-            @if $sensible-gutter > 0 and not $sensible-modern {
+            @if $sensible-gutter > 0 {
                 $width: calc(#{$width} - #{$sensible-gutter});
             }
             %#{$sensible-slug}grid,
