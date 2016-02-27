@@ -64,8 +64,8 @@
             font-size: 0.1px;
         }
 
-        @if $gutter {
-            #{$gutterType}-#{$gutterDirection}: $gutterCorrection;
+        @if $gutter > 0 {
+            margin-#{$gutterDirection}: $gutterCorrection;
         }
 
         %#{$slug}grid-cell,
