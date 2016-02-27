@@ -64,7 +64,7 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
   }
 
   @if $sensible-gutter > 0 {
-    #{$sensible-gutter-type}-#{$sensible-gutter-direction}: $sensible-gutter-correction;
+    margin-#{$sensible-gutter-direction}: $sensible-gutter-correction;
   }
 
   %#{$sensible-slug}grid-cell,
