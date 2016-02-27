@@ -1,156 +1,153 @@
-// column layouts
+// Column-layouts
 // http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
 
-/*!
- * 0. false will set the grid elements to inline-block if true flexbox (consider using autoprefixer for better bowser support)
- * 1. size of the gutter between the cols
- * 2. the gutter between the columns can be padding or margin
- * 3. the gutter can be on the right or the left side of every col
- * 4. Provides additional classes for the grid in order have different available gutter sizes
- * 5. Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
- * 6. Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
- * 7. If set to true, one push class per with will be available (margin-left)
- * 8. Generated col names & withs
- * 9. Breakpoints used in the grid (ideally reduced to a minimum)
- * 10. To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
- */
+// 00) false will set the grid elements to inline-block if true flexbox (consider using autoprefixer for better bowser support)
+// 01) size of the gutter between the cols
+// 02) the gutter between the columns can be padding or margin
+// 03) the gutter can be on the right or the left side of every col
+// 04) Provides additional classes for the grid in order have different available gutter sizes
+// 05) Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
+// 06) Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
+// 07) If set to true, one push class per with will be available (margin-left)
+// 08) Generated col names & withs
+// 09) Breakpoints used in the grid (ideally reduced to a minimum)
+// 10) To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
 
-// configuration:
+// Configuration:
 
-$sensible-modern:               true !default;    /* [0] */
-$sensible-gutter:               20px !default;    /* [1] */
-$sensible-gutter-type:          padding !default; /* [2] */
-$sensible-gutter-direction:     left !default;    /* [3] */
-$sensible-gutter-modifiers:     (                 /* [4] */
-                                    "no-gap": 0px,
-                                    "double": 40px,
-                                    "triple": 60px
-                                ) !default;
-$sensible-base-font-size:       16px !default;    /* [5] */
-$sensible-slug:                 "l-" !default;    /* [6] */
-$sensible-push-classes:         false !default;   /* [7] */
-$sensible-grid-widths:          (                 /* [8] */
-                                    "one-whole"       : 100%,
-                                    "one-half"        : 50%,
-                                    "one-quarter"     : 25%,
-                                    "three-quarters"  : 75%,
-                                    "one-third"       : 33.333%,
-                                    "two-thirds"      : 66.666%,
-                                    "one-fifth"       : 20%,
-                                    "four-fifths"     : 80%,
-                                    "one-sixth"       : 16.666%,
-                                    "five-sixths"     : 83.333%
-                                ) !default;
-$sensible-grid-breakpoints:     "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print" !default; /* [9] */
-$sensible-rounding:             0.0095% !default;  /* [10] */
+$sensible-modern:               true !default;    // [00]
+$sensible-gutter:               20px !default;    // [01]
+$sensible-gutter-type:          padding !default; // [02]
+$sensible-gutter-direction:     left !default;    // [03]
+$sensible-gutter-modifiers:     (                 // [04]
+  "no-gap": 0px,
+  "double": 40px,
+  "triple": 60px
+  ) !default;
+$sensible-base-font-size:       16px !default;    // [05]
+$sensible-slug:                 "l-" !default;    // [06]
+$sensible-push-classes:         false !default;   // [07]
+$sensible-grid-widths:          (                 // [08]
+  "one-whole"       : 100%,
+  "one-half"        : 50%,
+  "one-quarter"     : 25%,
+  "three-quarters"  : 75%,
+  "one-third"       : 33.333%,
+  "two-thirds"      : 66.666%,
+  "one-fifth"       : 20%,
+  "four-fifths"     : 80%,
+  "one-sixth"       : 16.666%,
+  "five-sixths"     : 83.333%
+  ) !default;
+$sensible-grid-breakpoints:     "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print" !default; // [09]
+$sensible-rounding:             0.0095% !default;  // [10]
 
-// configuration end
+// Configuration end
 $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
 
 //rounding is not an issue with flexbox
 @if $sensible-modern {
-    $sensible-rounding: 0;
-    $sensible-gutter-correction: -#{$sensible-gutter};
+  $sensible-rounding: 0;
+  $sensible-gutter-correction: -#{$sensible-gutter};
 }
 
 //class that wraps a grid cols
 %#{$sensible-slug}grid,
 .#{$sensible-slug}grid {
-    @if $sensible-modern {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    } @else {
-        //fixes the webkit inline-block issue
-        font-size: 0.1px;
-    }
+  @if $sensible-modern {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  } @else {
+    //fixes the webkit inline-block issue
+    font-size: 0.1px;
+  }
 
-    @if $sensible-gutter > 0 {
-        #{$sensible-gutter-type}-#{$sensible-gutter-direction}: $sensible-gutter-correction;
-    }
+  @if $sensible-gutter > 0 {
+    #{$sensible-gutter-type}-#{$sensible-gutter-direction}: $sensible-gutter-correction;
+  }
 
-    %#{$sensible-slug}grid-cell,
-    .#{$sensible-slug}grid-cell {
-        //cells only have a gutter inside the grid
-        #{$sensible-gutter-type}-#{$sensible-gutter-direction}: $sensible-gutter;
+  %#{$sensible-slug}grid-cell,
+  .#{$sensible-slug}grid-cell {
+    //cells only have a gutter inside the grid
+    #{$sensible-gutter-type}-#{$sensible-gutter-direction}: $sensible-gutter;
 
-        @if not $sensible-modern {
-            font-size: $sensible-base-font-size;
-        } @else {
-            display: block;
-        }
+    @if not $sensible-modern {
+      font-size: $sensible-base-font-size;
+      } @else {
+        display: block;
+      }
     }
 
     @if $sensible-gutter-modifiers != false {
-        @each $gutter-modifier, $new-gutter in $sensible-gutter-modifiers {
-           &--#{$gutter-modifier} {
-                margin-#{$sensible-gutter-direction}: -$new-gutter;
-                @if $new-gutter > 0 and not $sensible-modern {
-                    margin-#{$sensible-gutter-direction}: calc( -#{$new-gutter} + #{-1px} );
-                }
-                %#{$sensible-slug}grid-cell,
-                .#{$sensible-slug}grid-cell {
-                    #{$sensible-gutter-type}-#{$sensible-gutter-direction}: $new-gutter;
-                }
-           }
+      @each $gutter-modifier, $new-gutter in $sensible-gutter-modifiers {
+       &--#{$gutter-modifier} {
+        margin-#{$sensible-gutter-direction}: -$new-gutter;
+        @if $new-gutter > 0 and not $sensible-modern {
+          margin-#{$sensible-gutter-direction}: calc( -#{$new-gutter} + #{-1px} );
         }
+        %#{$sensible-slug}grid-cell,
+        .#{$sensible-slug}grid-cell {
+          #{$sensible-gutter-type}-#{$sensible-gutter-direction}: $new-gutter;
+        }
+      }
     }
+  }
 
-    &--gapped {
-        & > %#{$sensible-slug}grid-cell,
-        & > .#{$sensible-slug}grid-cell {
-            #{$sensible-gutter-type}-bottom: $sensible-gutter;
-        }
+  &--gapped {
+    & > %#{$sensible-slug}grid-cell,
+    & > .#{$sensible-slug}grid-cell {
+        #{$sensible-gutter-type}-bottom: $sensible-gutter;
     }
+  }
 }
 
 %#{$sensible-slug}grid-cell,
 .#{$sensible-slug}grid-cell {
-    display: inline-block;
-    vertical-align: top;
-    box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
 }
 
 // generate classes for grid cells
 @mixin sensibleGridClasses ( $device ) {
-    $deviceString: null;
+  $deviceString: null;
 
-    @if $device {
-        $deviceString: "--#{$device}";
+  @if $device {
+    $deviceString: "--#{$device}";
+  }
+
+  // loops the $gridWiths map
+  @each $gridWidth, $width in $sensible-grid-widths {
+    $width: $width / 10% * (10% - $sensible-rounding);
+
+    %#{$sensible-slug}#{$gridWidth}#{$deviceString},
+    .#{$sensible-slug}#{$gridWidth}#{$deviceString} {
+      width: $width;
     }
+    @if $sensible-push-classes {
+      %#{$sensible-slug}push-#{$gridWidth}#{$deviceString},
+      .#{$sensible-slug}push-#{$gridWidth}#{$deviceString}{
+        margin-left: $width;
+      }
+    }
+  }
 
-    // loops the $gridWiths map
+  @if $sensible-gutter-type == margin {
     @each $gridWidth, $width in $sensible-grid-widths {
-
-        $width: $width / 10% * (10% - $sensible-rounding);
-
-        %#{$sensible-slug}#{$gridWidth}#{$deviceString},
-        .#{$sensible-slug}#{$gridWidth}#{$deviceString} {
-            width: $width;
+      $width: $width / 10% * (10% - $sensible-rounding);
+      @if $sensible-gutter > 0 {
+        $width: calc(#{$width} - #{$sensible-gutter});
+      }
+      %#{$sensible-slug}grid,
+      .#{$sensible-slug}grid {
+        & > %#{$sensible-slug}#{$gridWidth}#{$deviceString},
+        & > .#{$sensible-slug}#{$gridWidth}#{$deviceString} {
+          width: $width;
         }
-        @if $sensible-push-classes {
-            %#{$sensible-slug}push-#{$gridWidth}#{$deviceString},
-            .#{$sensible-slug}push-#{$gridWidth}#{$deviceString}{
-                margin-left: $width;
-            }
-        }
+      }
     }
-
-    @if $sensible-gutter-type == margin {
-        @each $gridWidth, $width in $sensible-grid-widths {
-            $width: $width / 10% * (10% - $sensible-rounding);
-            @if $sensible-gutter > 0 {
-                $width: calc(#{$width} - #{$sensible-gutter});
-            }
-            %#{$sensible-slug}grid,
-            .#{$sensible-slug}grid {
-                & > %#{$sensible-slug}#{$gridWidth}#{$deviceString},
-                & > .#{$sensible-slug}#{$gridWidth}#{$deviceString} {
-                    width: $width;
-                }
-            }
-        }
-    }
+  }
 }
 
 //includes the default classes
@@ -158,9 +155,9 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
 
 //includes the classes for the bereakpoints listed in $gridbreakpoints
 @each $breakpoint in $sensible-grid-breakpoints {
-    @include breakpoint( $breakpoint ) {
-        @include sensibleGridClasses( $device: $breakpoint);
-    }
+  @include breakpoint( $breakpoint ) {
+    @include sensibleGridClasses( $device: $breakpoint);
+  }
 }
 
 
