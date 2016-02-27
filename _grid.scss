@@ -15,6 +15,8 @@
  * 10. To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
  */
 
+// configuration:
+
 $sensible-modern:               true !default;    /* [0] */
 $sensible-gutter:               20px !default;    /* [1] */
 $sensible-gutter-type:          padding !default; /* [2] */
@@ -42,53 +44,7 @@ $sensible-grid-widths:          (                 /* [8] */
 $sensible-grid-breakpoints:     "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print" !default; /* [9] */
 $sensible-rounding:             0.0095% !default;  /* [10] */
 
-
-
-
-// generate classes for grid cells
-@mixin sensibleGridClasses (
-    $device, $slug, $pushClasses, $gridWidths, $gutterType, $gutter, $rounding, $modern
-) {
-    $deviceString: null;
-
-    @if $device {
-        $deviceString: "--#{$device}";
-    }
-
-    // loops the $gridWiths map
-    @each $gridWidth, $width in $gridWidths {
-
-        $width: $width / 10% * (10% - $rounding);
-
-        %#{$slug}#{$gridWidth}#{$deviceString},
-        .#{$slug}#{$gridWidth}#{$deviceString} {
-            width: $width;
-        }
-        @if $pushClasses {
-            %#{$slug}push-#{$gridWidth}#{$deviceString},
-            .#{$slug}push-#{$gridWidth}#{$deviceString}{
-                margin-left: $width;
-            }
-        }
-    }
-
-    @if $gutterType == margin {
-        @each $gridWidth, $width in $gridWidths {
-            $width: $width / 10% * (10% - $rounding);
-            @if $gutter > 0 and not $modern {
-                $width: calc(#{$width} - #{$gutter});
-            }
-            %#{$slug}grid,
-            .#{$slug}grid {
-                & > %#{$slug}#{$gridWidth}#{$deviceString},
-                & > .#{$slug}#{$gridWidth}#{$deviceString} {
-                    width: $width;
-                }
-            }
-        }
-    }
-}
-
+// configuration end
 $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
 
 //rounding is not an issue with flexbox
@@ -155,13 +111,55 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
     box-sizing: border-box;
 }
 
+// generate classes for grid cells
+@mixin sensibleGridClasses ( $device ) {
+    $deviceString: null;
+
+    @if $device {
+        $deviceString: "--#{$device}";
+    }
+
+    // loops the $gridWiths map
+    @each $gridWidth, $width in $sensible-grid-widths {
+
+        $width: $width / 10% * (10% - $sensible-rounding);
+
+        %#{$sensible-slug}#{$gridWidth}#{$deviceString},
+        .#{$sensible-slug}#{$gridWidth}#{$deviceString} {
+            width: $width;
+        }
+        @if $sensible-push-classes {
+            %#{$sensible-slug}push-#{$gridWidth}#{$deviceString},
+            .#{$sensible-slug}push-#{$gridWidth}#{$deviceString}{
+                margin-left: $width;
+            }
+        }
+    }
+
+    @if $sensible-gutter-type == margin {
+        @each $gridWidth, $width in $gridWidths {
+            $width: $width / 10% * (10% - $sensible-rounding);
+            @if $sensible-gutter > 0 and not $sensible-modern {
+                $width: calc(#{$width} - #{$sensible-gutter});
+            }
+            %#{$sensible-slug}grid,
+            .#{$sensible-slug}grid {
+                & > %#{$sensible-slug}#{$gridWidth}#{$deviceString},
+                & > .#{$sensible-slug}#{$gridWidth}#{$deviceString} {
+                    width: $width;
+                }
+            }
+        }
+    }
+}
+
 //includes the default classes
-@include sensibleGridClasses($device: false, $slug: $sensible-slug, $pushClasses: $sensible-push-classes, $gridWidths: $sensible-grid-widths, $gutterType: $sensible-gutter-type, $gutter: $sensible-gutter, $rounding: $sensible-rounding, $modern: $sensible-modern);
+@include sensibleGridClasses($device: false);
 
 //includes the classes for the bereakpoints listed in $gridbreakpoints
 @each $breakpoint in $sensible-grid-breakpoints {
     @include breakpoint( $breakpoint ) {
-        @include sensibleGridClasses( $device: $breakpoint, $slug: $sensible-slug, $pushClasses: $sensible-push-classes, $gridWidths: $sensible-grid-widths, $gutterType: $sensible-gutter-type, $gutter: $sensible-gutter, $rounding: $sensible-rounding, $modern: $sensible-modern);
+        @include sensibleGridClasses( $device: $breakpoint);
     }
 }
 
