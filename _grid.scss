@@ -1,9 +1,3 @@
-@mixin gutter ($gutterDirection, $gutter, $gutterType: margin) {
-    @if $gutter > 0 {
-        #{$gutterType}-#{$gutterDirection}: -$gutter;
-        #{$gutterType}-#{$gutterDirection}: calc( -#{$gutter} + #{-1px} );
-    }
-}
 // column layouts
 // http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
 
@@ -49,10 +43,12 @@
     $gridBreakpoints: "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print", /* [9] */
     $rounding: 0.0095%                   /* [10] */
 ) {
+    $gutterCorrection:  calc( -#{$gutter} + #{-1px} );
 
     //rounding is not an issue with flexbox
     @if $modern {
         $rounding: 0;
+        $gutterCorrection: -#{$gutter};
     }
 
     //class that wraps a grid cols
@@ -68,7 +64,9 @@
             font-size: 0.1px;
         }
 
-        @include gutter ($gutterDirection, $gutter, $gutterType: margin);
+        @if $gutter {
+            #{$gutterType}-#{$gutterDirection}: $gutterCorrection;
+        }
 
         %#{$slug}grid-cell,
         .#{$slug}grid-cell {
@@ -86,7 +84,9 @@
             @each $gutterModifier, $newGutter in $gutterModifiers {
                &--#{$gutterModifier} {
                     margin-#{$gutterDirection}: -$newGutter;
-                    margin-#{$gutterDirection}: calc( -#{$newGutter} + #{-1px} );
+                    @if $newGutter > 0 and not $modern {
+                        margin-#{$gutterDirection}: calc( -#{$newGutter} + #{-1px} );
+                    }
                     %#{$slug}grid-cell,
                     .#{$slug}grid-cell {
                         #{$gutterType}-#{$gutterDirection}: $newGutter;
@@ -112,12 +112,12 @@
     }
 
     //includes the default classes
-    @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding);
+    @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding, $modern: $modern);
 
     //includes the classes for the bereakpoints listed in $gridbreakpoints
     @each $breakpoint in $gridBreakpoints {
         @include breakpoint( $breakpoint ) {
-            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding);
+            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding, $modern: $modern);
         }
     }
 }
@@ -135,7 +135,8 @@
     ),
     $gutterType: padding,
     $gutter: 20px,
-    $rounding: 0
+    $rounding: 0,
+    $modern: false
 ) {
     $deviceString: null;
 
@@ -163,11 +164,14 @@
     @if $gutterType == margin {
         @each $gridWidth, $width in $gridWidths {
             $width: $width / 10% * (10% - $rounding);
+            @if $gutter > 0 and not $modern {
+                $width: calc(#{$width} - #{$gutter});
+            }
             %#{$slug}grid,
             .#{$slug}grid {
                 & > %#{$slug}#{$gridWidth}#{$deviceString},
                 & > .#{$slug}#{$gridWidth}#{$deviceString} {
-                    width: calc(#{$width} - #{$gutter});
+                    width: $width;
                 }
             }
         }
