@@ -90,11 +90,11 @@
         }
 
         // handles the actual callback
-        if ((match(queryKey) && this.type === "enter" && !this.current) || (!match(queryKey) && this.type === "leave" && !this.current)) {
+        if ((match(queryKey) && this.type === 'enter' && !this.current) || (!match(queryKey) && this.type === 'leave' && !this.current)) {
           this.current = true;
           this.callback(queryKey);
           wasCalled.push(this);
-        } else if ((!match(queryKey) && this.type === "enter" && this.current) || (match(queryKey) && this.type === "leave" && this.current)) {
+        } else if ((!match(queryKey) && this.type === 'enter' && this.current) || (match(queryKey) && this.type === 'leave' && this.current)) {
           this.current = false;
           return;
         }
@@ -107,7 +107,7 @@
   addEvent = function( type,queryKey,callback,callOnAdd ){
     var i, triggers, trigger;
 
-    triggers = queryKey.split(" ");
+    triggers = queryKey.split(' ');
     for (i = 0; i < triggers.length; ++i ){
       trigger = triggers[i];
       if( !events.hasOwnProperty(trigger) ) {
@@ -126,7 +126,7 @@
   });
 
   //creating a dom element to read the content set by the CSS
-  $ref = $("<div />", {'class':"js-breakpoint", 'css':{'display': "none"}});
+  $ref = $('<div />', {'class':'js-breakpoint', 'css':{'display': 'none'}});
   $ref.appendTo($('body'));
 
   //get the json from the css, IE does not support having content on non :after elements so we use font-family
