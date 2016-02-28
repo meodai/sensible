@@ -37,7 +37,7 @@
 
   var mediaQuery,
   // vars
-      queryJSONString, queries, events, $ref, timeoutId,
+      queryJSONString, queries, events, ref, refCSS, timeoutId,
   // functions
       parseJSONString, addEvent, match, callEvents, handleResize;
 
@@ -123,11 +123,11 @@
   window.addEventListener('resize', handleResize, true);
 
   //creating a dom element to read the content set by the CSS
-  var ref = document.createElement('div');
+  ref = document.createElement('div');
   ref.className = 'js-breakpoint';
   ref.style.display = 'none';
   document.body.appendChild(ref);
-  var refCSS = window.getComputedStyle(ref);
+  refCSS = window.getComputedStyle(ref);
 
   //get the json from the css, IE does not support having content on non :after elements so we use font-family
   if(refCSS.getPropertyValue('content')){
