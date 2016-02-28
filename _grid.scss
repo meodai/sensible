@@ -9,7 +9,7 @@
 // 05) Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
 // 06) Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
 // 07) If set to true, one push class per with will be available (margin-left)
-// 08) Generated col names & withs
+// 0) Generated col names & withs
 // 09) Breakpoints used in the grid (ideally reduced to a minimum)
 // 10) To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
 
@@ -45,13 +45,13 @@ $sensible-rounding:             0.0095% !default;  // [10]
 // Configuration end
 $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
 
-//rounding is not an issue with flexbox
+// rounding is not an issue with flexbox
 @if $sensible-modern {
   $sensible-rounding: 0;
   $sensible-gutter-correction: -#{$sensible-gutter};
 }
 
-//class that wraps a grid cols
+// class that wraps a grid cols
 %#{$sensible-slug}grid,
 .#{$sensible-slug}grid {
   @if $sensible-modern {
@@ -59,7 +59,7 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
     flex-direction: row;
     flex-wrap: wrap;
   } @else {
-    //fixes the webkit inline-block issue
+    // fixes the webkit inline-block issue
     font-size: 0.1px;
   }
 
@@ -150,14 +150,12 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
   }
 }
 
-//includes the default classes
+// includes the default classes
 @include sensibleGridClasses($device: false);
 
-//includes the classes for the bereakpoints listed in $gridbreakpoints
+// includes the classes for the bereakpoints listed in $gridbreakpoints
 @each $breakpoint in $sensible-grid-breakpoints {
   @include breakpoint( $breakpoint ) {
     @include sensibleGridClasses( $device: $breakpoint);
   }
 }
-
-
