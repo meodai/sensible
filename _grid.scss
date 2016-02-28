@@ -1,5 +1,4 @@
 // Column-layouts
-// http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
 
 // 00) false will set the grid elements to inline-block if true flexbox (consider using autoprefixer for better bowser support)
 // 01) size of the gutter between the cols
@@ -157,4 +156,8 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
   @include breakpoint( $breakpoint ) {
     @include sensibleGridClasses( $device: $breakpoint);
   }
+}
+
+@mixin sensibleGrid () {
+  @warn 'this mixin no longer works; sensible grid is now rendered at inclusion';
 }
