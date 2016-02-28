@@ -17,7 +17,7 @@
 
 $sensible-modern:               true !default;    // [00]
 $sensible-gutter:               1rem !default;    // [01]
-$sensible-gutter-type:          margin !default; // [02]
+$sensible-gutter-type:          margin !default;  // [02]
 $sensible-gutter-direction:     left !default;    // [03]
 $sensible-gutter-modifiers:     (                 // [04]
   "no-gap": 0,
@@ -96,7 +96,7 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
   &--gapped {
     & > %#{$sensible-slug}grid-cell,
     & > .#{$sensible-slug}grid-cell {
-        #{$sensible-gutter-type}-bottom: $sensible-gutter;
+      #{$sensible-gutter-type}-bottom: $sensible-gutter;
     }
   }
 }
@@ -109,7 +109,7 @@ $sensible-gutter-correction:  calc( -#{$sensible-gutter} + #{-1px} );
 }
 
 // generate classes for grid cells
-@mixin sensibleGridClasses ( $device ) {
+@mixin sensibleGridClasses ($device) {
   $deviceString: null;
 
   @if $device {
