@@ -70,30 +70,32 @@
   };
 
   // triggers the callbacks and updates the current matches
-  callEvents = function (callback) {
-    var wasCalled = [];
+  callEvents = function (fn) {
+    var queryKey, i, callback, callbacks, wasCalled = [];
 
-    $.each(events, function (queryKey, callbacks) {
-      $.each(callbacks, function () {
+    for (queryKey in events) {
+      callbacks = events[queryKey];
+      for (i in callbacks) {
+        callback = callbacks[i];
         // used for the callOnRegister option in addEvent
-        if (callback && callback !== this.callback) {
+        if (fn && fn !== callback.callback) {
           return;
         }
         // makes sure callback was not already called
-        if ($.inArray(this, wasCalled) !== -1) {
+        if (wasCalled.indexOf(callback) !== -1) {
           return;
         }
         // handles the actual callback
-        if ((match(queryKey) && this.type === 'enter' && !this.current) || (!match(queryKey) && this.type === 'leave' && !this.current)) {
-          this.current = true;
-          this.callback(queryKey);
-          wasCalled.push(this);
-        } else if ((!match(queryKey) && this.type === 'enter' && this.current) || (match(queryKey) && this.type === 'leave' && this.current)) {
-          this.current = false;
+        if ((match(queryKey) && callback.type === 'enter' && !callback.current) || (!match(queryKey) && callback.type === 'leave' && !callback.current)) {
+          events[queryKey][i].current = true;
+          callback.callback(queryKey);
+          wasCalled.push(callback);
+        } else if ((!match(queryKey) && callback.type === 'enter' && callback.current) || (match(queryKey) && callback.type === 'leave' && callback.current)) {
+          events[queryKey][i].current = false;
           return;
         }
-      });
-    });
+      }
+    }
   };
 
   //adds an event to the callbacks to the events object
