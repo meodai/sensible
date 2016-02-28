@@ -9,7 +9,7 @@
 // 05) Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
 // 06) Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
 // 07) If set to true, one push class per with will be available (margin-left)
-// 08) Generated col names & withs
+// 08) Generated col names <-> withs (uncomment for classes like l-1/2, l-1/2 etc..)
 // 09) Breakpoints used in the grid (ideally reduced to a minimum)
 // 10) To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
 
@@ -27,16 +27,16 @@ $sensible-base-font-size:       16px !default;    // [05]
 $sensible-slug:                 "l-" !default;    // [06]
 $sensible-push-classes:         false !default;   // [07]
 $sensible-grid-widths:          (                 // [08]
-  "one-whole"       : 100%,
-  "one-half"        : 50%,
-  "one-quarter"     : 25%,
-  "three-quarters"  : 75%,
-  "one-third"       : 33.333%,
-  "two-thirds"      : 66.666%,
-  "one-fifth"       : 20%,
-  "four-fifths"     : 80%,
-  "one-sixth"       : 16.666%,
-  "five-sixths"     : 83.333%
+  "one-whole"       : 100%,                       // 1\/1     : 100%,
+  "one-half"        : 50%,                        // 1\/2     : 50%,
+  "one-quarter"     : 25%,                        // 1\/4     : 25%,
+  "three-quarters"  : 75%,                        // 3\/4     : 75%,
+  "one-third"       : 33.333%,                    // 1\/3     : 33.333%,
+  "two-thirds"      : 66.666%,                    // 2\/3     : 66.666%,
+  "one-fifth"       : 20%,                        // 1\/5     : 20%,
+  "four-fifths"     : 80%,                        // 4\/5     : 80%,
+  "one-sixth"       : 16.666%,                    // 1\/6     : 16.666%,
+  "five-sixths"     : 83.333%                     // 5\/6     : 83.333%
   ) !default;
 $sensible-grid-breakpoints:     "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print" !default; // [09]
 $sensible-rounding:             0.0095% !default;  // [10]
