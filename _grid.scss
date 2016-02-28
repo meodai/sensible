@@ -9,20 +9,19 @@
 // 05) Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
 // 06) Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
 // 07) If set to true, one push class per with will be available (margin-left)
-// 0) Generated col names & withs
+// 08) Generated col names & withs
 // 09) Breakpoints used in the grid (ideally reduced to a minimum)
 // 10) To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
 
 // Configuration:
 
 $sensible-modern:               true !default;    // [00]
-$sensible-gutter:               20px !default;    // [01]
-$sensible-gutter-type:          padding !default; // [02]
+$sensible-gutter:               1rem !default;    // [01]
+$sensible-gutter-type:          margin !default; // [02]
 $sensible-gutter-direction:     left !default;    // [03]
 $sensible-gutter-modifiers:     (                 // [04]
-  "no-gap": 0px,
-  "double": 40px,
-  "triple": 60px
+  "no-gap": 0,
+  "large" : 2rem
   ) !default;
 $sensible-base-font-size:       16px !default;    // [05]
 $sensible-slug:                 "l-" !default;    // [06]
