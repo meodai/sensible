@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/meodai/sensible#readme",
   "dependencies": {
-    "matchmedia": "^0.1.2",
-    "jquery": ">=1.10.2"
+    "matchmedia-polyfill": "^0.3.0"
   }
 }
