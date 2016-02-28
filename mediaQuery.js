@@ -34,10 +34,8 @@
     }
 }(this, function () {
   'use strict';
-
-  var mediaQuery,
   // vars
-      queryJSONString, queries, events, ref, refCSS, timeoutId,
+  var queryJSONString, queries, events, ref, refCSS, timeoutId,
   // functions
       parseJSONString, addEvent, match, callEvents, handleResize;
 
