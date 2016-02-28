@@ -18,7 +18,6 @@
     }
 
     todo:
-      - optional debounce
       - use: window.matchMedia('all').addListener
         https://github.com/paulirish/matchMedia.js/blob/master/matchMedia.addListener.js
       - include Modernizr fallback .mq() for non supported browsers
@@ -28,22 +27,19 @@
     // optional AMD https://github.com/umdjs/umd/blob/master/amdWeb.js
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
+        define(factory);
     } else {
         // Browser globals
-        root.mediaQuery = factory(root.$);
+        root.mediaQuery = factory();
     }
-}(this, function ($) {
+}(this, function () {
   'use strict';
 
   var mediaQuery,
   // vars
-      nameSpace, queryJSONString, queries, events, $ref,
+      queryJSONString, queries, events, $ref, timeoutId,
   // functions
-      parseJSONString, addEvent, match, callEvents;
-
-  //  namespace for jQueryevents
-  nameSpace = 'mediaQuery';
+      parseJSONString, addEvent, match, callEvents, handleResize;
 
   // will contain all the media queries:
   // {'mobile': 'only screen and (min-width: 500px)', ...}
@@ -51,6 +47,8 @@
 
   // callbacks for enter and leave
   events = {};
+
+  timeoutId = 0;
 
   // parses the JSON given from the CSS
   parseJSONString = function (queryJSONString) {
@@ -108,29 +106,35 @@
       if( !events.hasOwnProperty(trigger) ) {
         events[trigger] = [];
       }
-      events[trigger].push({callback: callback, type: type, current: match(queryKey)});
+      events[trigger].push({callback: callback, type: type, current: match(queryKey), queryString: queryKey, query: queries[queryKey]});
     }
     if( callOnAdd ) {
       callEvents(callback);
     }
   };
 
-  $(window).on('resize.' + nameSpace, function(){
+  handleResize = function(){
+    clearTimeout(timeoutId);
     callEvents();
-  });
+  };
+
+  window.addEventListener('resize', handleResize, true);
 
   //creating a dom element to read the content set by the CSS
-  $ref = $('<div />', {'class':'js-breakpoint', 'css':{'display': 'none'}});
-  $ref.appendTo($('body'));
+  var ref = document.createElement('div');
+  ref.className = 'js-breakpoint';
+  ref.style.display = 'none';
+  document.body.appendChild(ref);
+  var refCSS = window.getComputedStyle(ref);
 
   //get the json from the css, IE does not support having content on non :after elements so we use font-family
-  if($ref.css('content')){
-    queryJSONString = $ref.css('content').toLowerCase() == 'normal' ? $ref.css('font-family') : $ref.css('content');
+  if(refCSS.getPropertyValue('content')){
+    queryJSONString = refCSS.getPropertyValue('content').toLowerCase() == 'normal' ? refCSS.getPropertyValue('font-family') : refCSS.getPropertyValue('content');
   }else{
-    queryJSONString = $ref.css('font-family');
+    queryJSONString = refCSS.getPropertyValue('font-family');
   }
 
-  $ref.remove();
+  document.body.removeChild(ref);
 
   // parse the the json from the css
   queries = parseJSONString(queryJSONString);
