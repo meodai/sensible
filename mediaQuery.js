@@ -60,7 +60,7 @@
     try{
         queriesObject = JSON.parse(queryJSONString);
     }catch(e){
-        $.error('Sensible mediaQuery error. The query string in the DOM was not a JSON object: ' + queryJSONString);
+        console.log('Sensible mediaQuery error. The query string in the DOM was not a JSON object: ' + queryJSONString);
     }
 
     return queriesObject;
@@ -72,23 +72,19 @@
   };
 
   // triggers the callbacks and updates the current matches
-
   callEvents = function (callback) {
     var wasCalled = [];
 
     $.each(events, function (queryKey, callbacks) {
-
       $.each(callbacks, function () {
         // used for the callOnRegister option in addEvent
         if (callback && callback !== this.callback) {
           return;
         }
-
         // makes sure callback was not already called
         if ($.inArray(this, wasCalled) !== -1) {
           return;
         }
-
         // handles the actual callback
         if ((match(queryKey) && this.type === 'enter' && !this.current) || (!match(queryKey) && this.type === 'leave' && !this.current)) {
           this.current = true;
@@ -98,13 +94,12 @@
           this.current = false;
           return;
         }
-
       });
     });
   };
 
   //adds an event to the callbacks to the events object
-  addEvent = function( type,queryKey,callback,callOnAdd ){
+  addEvent = function(type, queryKey, callback, callOnAdd){
     var i, triggers, trigger;
 
     triggers = queryKey.split(' ');
@@ -115,7 +110,6 @@
       }
       events[trigger].push({callback: callback, type: type, current: match(queryKey)});
     }
-
     if( callOnAdd ) {
       callEvents(callback);
     }
@@ -136,16 +130,18 @@
     queryJSONString = $ref.css('font-family');
   }
 
+  $ref.remove();
+
   // parse the the json from the css
   queries = parseJSONString(queryJSONString);
 
   // expose main functions
-  mediaQuery = {
-    onEnter: function (queryKey,callback,callOnRegister) {
-      addEvent( 'enter',queryKey,callback,callOnRegister );
+  return {
+    onEnter: function (queryKey, callback, callOnRegister) {
+      addEvent('enter', queryKey, callback, callOnRegister);
     },
-    onLeave: function (queryKey,callback,callOnRegister) {
-      addEvent( 'leave',queryKey,callback,callOnRegister );
+    onLeave: function (queryKey, callback, callOnRegister) {
+      addEvent('leave', queryKey, callback, callOnRegister);
     },
     is: function (queryKey) {
       return match(queryKey);
@@ -154,6 +150,4 @@
       return !match(queryKey);
     }
   };
-
-  return mediaQuery;
 }));
