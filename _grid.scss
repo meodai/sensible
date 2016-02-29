@@ -119,7 +119,7 @@
 }
 
 // generate classes for grid cells
-@mixin sensibleGridClasses ($device, $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter) {
+@mixin sensibleGridClasses($device, $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter) {
   $deviceString: null;
 
   @if $device {
@@ -130,6 +130,11 @@
   @each $gridWidth, $width in $grid-widths {
     $width: $width / 10% * (10% - $rounding);
 
+    // if margin is used we need to subtract the gutter
+    @if $gutter > 0 and $gutter-type == margin {
+      $width: calc(#{$width} - #{$gutter});
+    }
+
     %#{$slug}#{$gridWidth}#{$deviceString},
     .#{$slug}#{$gridWidth}#{$deviceString} {
       width: $width;
@@ -138,22 +143,6 @@
       %#{$slug}push-#{$gridWidth}#{$deviceString},
       .#{$slug}push-#{$gridWidth}#{$deviceString}{
         margin-left: $width;
-      }
-    }
-  }
-
-  @if $gutter-type == margin {
-    @each $gridWidth, $width in $grid-widths {
-      $width: $width / 10% * (10% - $rounding);
-      @if $gutter > 0 {
-        $width: calc(#{$width} - #{$gutter});
-      }
-      %#{$slug}grid,
-      .#{$slug}grid {
-        & > %#{$slug}#{$gridWidth}#{$deviceString},
-        & > .#{$slug}#{$gridWidth}#{$deviceString} {
-          width: $width;
-        }
       }
     }
   }
