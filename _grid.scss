@@ -108,18 +108,18 @@
   }
 
   // includes the default classes
-  @include sensibleGridClasses($device: false, $grid-widths: $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter);
+  @include sensibleGridClasses($device: false, $grid-widths: $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter, $gutter-modifiers: $gutter-modifiers);
 
   // includes the classes for the bereakpoints listed in $gridbreakpoints
   @each $breakpoint in $grid-breakpoints {
     @include breakpoint( $breakpoint ) {
-      @include sensibleGridClasses( $device: $breakpoint, $grid-widths: $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter);
+      @include sensibleGridClasses( $device: $breakpoint, $grid-widths: $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter, $gutter-modifiers: $gutter-modifiers);
     }
   }
 }
 
 // generate classes for grid cells
-@mixin sensibleGridClasses($device, $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter) {
+@mixin sensibleGridClasses($device, $grid-widths, $rounding, $slug, $push-classes, $gutter-type, $gutter, $gutter-modifiers) {
   $deviceString: null;
 
   @if $device {
@@ -128,21 +128,35 @@
 
   // loops the $gridWiths map
   @each $gridWidth, $width in $grid-widths {
-    $width: $width / 10% * (10% - $rounding);
+    $newWidth: $width / 10% * (10% - $rounding);
 
     // if margin is used we need to subtract the gutter
     @if $gutter > 0 and $gutter-type == margin {
-      $width: calc(#{$width} - #{$gutter});
+      $newWidth: calc(#{$width} - #{$gutter});
     }
 
     %#{$slug}#{$gridWidth}#{$deviceString},
     .#{$slug}#{$gridWidth}#{$deviceString} {
-      width: $width;
+      width: $newWidth;
     }
+
+    @if $gutter-type == margin {
+      @each $gutter-modifier, $new-gutter in $gutter-modifiers {
+        @if $new-gutter > 0 {
+          $newWidth: $width / 10% * (10% - $rounding);
+          $newWidth: calc(#{$newWidth} - #{$new-gutter});
+          %#{$slug}grid--#{$gutter-modifier} %#{$slug}#{$gridWidth}#{$deviceString},
+          .#{$slug}grid--#{$gutter-modifier} .#{$slug}#{$gridWidth}#{$deviceString} {
+            width: $newWidth;
+          }
+        }
+      }
+    }
+
     @if $push-classes {
       %#{$slug}push-#{$gridWidth}#{$deviceString},
-      .#{$slug}push-#{$gridWidth}#{$deviceString}{
-        margin-left: $width;
+      .#{$slug}push-#{$gridWidth}#{$deviceString} {
+        margin-left: $newWidth;
       }
     }
   }
