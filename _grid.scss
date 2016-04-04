@@ -155,7 +155,7 @@
         }
         @if $pushClasses {
             %#{$slug}push-#{$gridWidth}#{$deviceString},
-            .#{$slug}push-#{$gridWidth}#{$deviceString}{
+            .#{$slug}grid .#{$slug}push-#{$gridWidth}#{$deviceString}{
                 margin-left: $width;
             }
         }
