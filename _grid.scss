@@ -1,179 +1,164 @@
-// column layouts
-// http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
+// Column-layouts
 
-/*!
- * 0. false will set the grid elements to inline-block if true flexbox (consider using autoprefixer for better bowser support)
- * 1. size of the gutter between the cols
- * 2. the gutter between the columns can be padding or margin
- * 3. the gutter can be on the right or the left side of every col
- * 4. Provides additional classes for the grid in order have different available gutter sizes
- * 5. Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
- * 6. Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
- * 7. If set to true, one push class per with will be available (margin-left)
- * 8. Generated col names & withs
- * 9. Breakpoints used in the grid (ideally reduced to a minimum)
- * 10. To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
- */
+// 00) false will set the grid elements to inline-block if true flexbox (consider using autoprefixer for better bowser support)
+// 01) size of the gutter between the cols
+// 02) the gutter between the columns can be padding or margin
+// 03) the gutter can be on the right or the left side of every col
+// 04) Provides additional classes for the grid in order have different available gutter sizes
+// 05) Base font size used for the in-line-block gap fix: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
+// 06) Slug used for the grid classes (l- for SMACSS layout), empty string for no slug
+// 07) If set to true, one push class per with will be available (margin-left)
+// 08) Generated col names <-> withs (uncomment for classes like l-1/2, l-1/2 etc..)
+// 09) Breakpoints used in the grid (ideally reduced to a minimum)
+// 10) To avoid breaking the grid on Blackberry and some Firefox version you can set a rounding. 50% will be 50% - $rounding etc.. Set this to 0 if you don't need it.
 
+// Configuration:
 @mixin sensibleGrid (
-    $modern: false,                     /* [0] */
-    $gutter: 20px,                      /* [1] */
-    $gutterType: padding,               /* [2] */
-    $gutterDirection: "left",           /* [3] */
-    $gutterModifiers: (                 /* [4] */
-        "no-gap"            : 0px,
-        "double"            : 40px,
-        "triple"            : 60px
+  $modern:               true,            // [00]
+  $gutter:               1rem,            // [01]
+  $gutter-type:          margin,          // [02]
+  $gutter-direction:     left,            // [03]
+  $gutter-modifiers:     (                // [04]
+    "no-gap": 0,
+    "large" : 2rem
     ),
-    $base-font-size: 16px,              /* [5] */
-    $slug: "l-",                        /* [6] */
-    $pushClasses: false,                /* [7] */
-    $gridWidths: (                      /* [8] */
-        "one-whole"         : 100%,
-        "one-half"          : 50%,
-        "one-quarter"       : 25%,
-        "three-quarters"    : 75%,
-        "one-third"         : 33.333%,
-        "two-thirds"        : 66.666%,
-        "one-fifth"         : 20%,
-        "four-fifths"       : 80%,
-        "one-sixth"         : 16.666%,
-        "five-sixths"       : 83.333%
+  $base-font-size:       16px,             // [05]
+  $slug:                 "l-",             // [06]
+  $push-classes:         false,            // [07]
+  $grid-widths:          (                 // [08]
+    "one-whole"       : 100%,              // 1\/1     : 100%,
+    "one-half"        : 50%,               // 1\/2     : 50%,
+    "one-quarter"     : 25%,               // 1\/4     : 25%,
+    "three-quarters"  : 75%,               // 3\/4     : 75%,
+    "one-third"       : 33.333%,           // 1\/3     : 33.333%,
+    "two-thirds"      : 66.666%,           // 2\/3     : 66.666%,
+    "one-fifth"       : 20%,               // 1\/5     : 20%,
+    "four-fifths"     : 80%,               // 4\/5     : 80%,
+    "one-sixth"       : 16.666%,           // 1\/6     : 16.666%,
+    "five-sixths"     : 83.333%            // 5\/6     : 83.333%
     ),
-    $gridBreakpoints: "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print", /* [9] */
-    $rounding: 0.0095%                   /* [10] */
-) {
-    $gutterCorrection:  calc( -#{$gutter} + #{-1px} );
+  $grid-breakpoints:     "not-tablet" "tablet" "tablet-portrait" "not-mobile" "mobile" "mobile-portrait" "print",                         // [09]
+  $rounding:             0.0095%           // [10]
+){
+  // Configuration end
+  $gutter-correction:  calc( -#{$gutter} + #{-1px} );
 
-    //rounding is not an issue with flexbox
+  // rounding is not an issue with flexbox
+  @if $modern {
+    $rounding: 0;
+    $gutter-correction: -#{$gutter};
+  }
+
+  // class that wraps a grid cols
+  %#{$slug}grid,
+  .#{$slug}grid {
     @if $modern {
-        $rounding: 0;
-        $gutterCorrection: -#{$gutter};
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    } @else {
+      // fixes the webkit inline-block issue
+      font-size: 0.1px;
     }
 
-    //class that wraps a grid cols
-    %#{$slug}grid,
-    .#{$slug}grid {
-
-        @if $modern {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-        } @else {
-            //fixes the webkit inline-block issue
-            font-size: 0.1px;
-        }
-
-        @if $gutter > 0 {
-            margin-#{$gutterDirection}: $gutterCorrection;
-        }
-
-        %#{$slug}grid-cell,
-        .#{$slug}grid-cell {
-            //cells only have a gutter inside the grid
-            #{$gutterType}-#{$gutterDirection}: $gutter;
-
-            @if $modern == false {
-                font-size: $base-font-size;
-            } @else {
-                display: block;
-            }
-        }
-
-        @if $gutterModifiers != false {
-            @each $gutterModifier, $newGutter in $gutterModifiers {
-               &--#{$gutterModifier} {
-                    margin-#{$gutterDirection}: -$newGutter;
-                    @if $newGutter > 0 and not $modern {
-                        margin-#{$gutterDirection}: calc( -#{$newGutter} + #{-1px} );
-                    }
-                    %#{$slug}grid-cell,
-                    .#{$slug}grid-cell {
-                        #{$gutterType}-#{$gutterDirection}: $newGutter;
-                    }
-               }
-            }
-        }
-
-        &--gapped {
-            & > %#{$slug}grid-cell,
-            & > .#{$slug}grid-cell {
-                #{$gutterType}-bottom: $gutter;
-            }
-        }
-
+    @if $gutter > 0 {
+      margin-#{$gutter-direction}: $gutter-correction;
     }
 
     %#{$slug}grid-cell,
     .#{$slug}grid-cell {
-        display: inline-block;
-        vertical-align: top;
-        box-sizing: border-box;
-    }
+      //cells only have a gutter inside the grid
+      #{$gutter-type}-#{$gutter-direction}: $gutter;
 
-    //includes the default classes
-    @include sensibleGridClasses($device: false, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding, $modern: $modern);
-
-    //includes the classes for the bereakpoints listed in $gridbreakpoints
-    @each $breakpoint in $gridBreakpoints {
-        @include breakpoint( $breakpoint ) {
-            @include sensibleGridClasses( $device: $breakpoint, $slug: $slug, $pushClasses: $pushClasses, $gridWidths: $gridWidths, $gutterType: $gutterType, $gutter: $gutter, $rounding: $rounding, $modern: $modern);
+      @if not $modern {
+        font-size: $base-font-size;
+        } @else {
+          display: block;
         }
+      }
+
+      @if $gutter-modifiers != false {
+        @each $gutter-modifier, $new-gutter in $gutter-modifiers {
+         &--#{$gutter-modifier} {
+          margin-#{$gutter-direction}: -$new-gutter;
+          @if $new-gutter > 0 and not $modern {
+            margin-#{$gutter-direction}: calc( -#{$new-gutter} + #{-1px} );
+          }
+          %#{$slug}grid-cell,
+          .#{$slug}grid-cell {
+            #{$gutter-type}-#{$gutter-direction}: $new-gutter;
+          }
+        }
+      }
     }
+
+    &--gapped {
+      & > %#{$slug}grid-cell,
+      & > .#{$slug}grid-cell {
+        #{$gutter-type}-bottom: $gutter;
+      }
+    }
+  }
+
+  %#{$slug}grid-cell,
+  .#{$slug}grid-cell {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+  }
+
+  // includes the default classes
+  @include sensibleGridClasses($device: false, $grid-widths: $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter, $gutter-modifiers: $gutter-modifiers);
+
+  // includes the classes for the bereakpoints listed in $gridbreakpoints
+  @each $breakpoint in $grid-breakpoints {
+    @include breakpoint( $breakpoint ) {
+      @include sensibleGridClasses( $device: $breakpoint, $grid-widths: $grid-widths, $rounding: $rounding, $slug: $slug, $push-classes: $push-classes, $gutter-type: $gutter-type, $gutter: $gutter, $gutter-modifiers: $gutter-modifiers);
+    }
+  }
 }
 
 // generate classes for grid cells
-@mixin sensibleGridClasses (
-    $device: false,
-    $slug: "l-",
-    $pushClasses: false,
-    $gridWidths: (
-        "one-whole"         : 100%,
-        "one-half"          : 50%,
-        "one-quarter"       : 25%,
-        "three-quarters"    : 75%
-    ),
-    $gutterType: padding,
-    $gutter: 20px,
-    $rounding: 0,
-    $modern: false
-) {
-    $deviceString: null;
+@mixin sensibleGridClasses($device, $grid-widths, $rounding, $slug, $push-classes, $gutter-type, $gutter, $gutter-modifiers) {
+  $deviceString: null;
 
-    @if $device {
-        $deviceString: "--#{$device}";
+  @if $device {
+    $deviceString: "--#{$device}";
+  }
+
+  // loops the $gridWiths map
+  @each $gridWidth, $width in $grid-widths {
+    $newWidth: $width / 10% * (10% - $rounding);
+
+    // if margin is used we need to subtract the gutter
+    @if $gutter > 0 and $gutter-type == margin {
+      $newWidth: calc(#{$width} - #{$gutter});
     }
 
-    // loops the $gridWiths map
-    @each $gridWidth, $width in $gridWidths {
-
-        $width: $width / 10% * (10% - $rounding);
-
-        %#{$slug}#{$gridWidth}#{$deviceString},
-        .#{$slug}#{$gridWidth}#{$deviceString} {
-            width: $width;
-        }
-        @if $pushClasses {
-            %#{$slug}push-#{$gridWidth}#{$deviceString},
-            .#{$slug}push-#{$gridWidth}#{$deviceString}{
-                margin-left: $width;
-            }
-        }
+    %#{$slug}#{$gridWidth}#{$deviceString},
+    .#{$slug}#{$gridWidth}#{$deviceString} {
+      width: $newWidth;
     }
 
-    @if $gutterType == margin {
-        @each $gridWidth, $width in $gridWidths {
-            $width: $width / 10% * (10% - $rounding);
-            @if $gutter > 0 {
-                $width: calc(#{$width} - #{$gutter});
-            }
-            %#{$slug}grid,
-            .#{$slug}grid {
-                & > %#{$slug}#{$gridWidth}#{$deviceString},
-                & > .#{$slug}#{$gridWidth}#{$deviceString} {
-                    width: $width;
-                }
-            }
+    @if $gutter-type == margin {
+      @each $gutter-modifier, $new-gutter in $gutter-modifiers {
+        @if $new-gutter > 0 {
+          $newWidth: $width / 10% * (10% - $rounding);
+          $newWidth: calc(#{$newWidth} - #{$new-gutter});
+          %#{$slug}grid--#{$gutter-modifier} %#{$slug}#{$gridWidth}#{$deviceString},
+          .#{$slug}grid--#{$gutter-modifier} .#{$slug}#{$gridWidth}#{$deviceString} {
+            width: $newWidth;
+          }
         }
+      }
     }
+
+    @if $push-classes {
+      %#{$slug}push-#{$gridWidth}#{$deviceString},
+      .#{$slug}push-#{$gridWidth}#{$deviceString},
+      .#{$slug}grid .#{$slug}push-#{$gridWidth}#{$deviceString} {
+        margin-left: $newWidth;
+      }
+    }
+  }
 }
