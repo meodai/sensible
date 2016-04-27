@@ -2,7 +2,7 @@
 
 # sensible
 
-`Sensible` maintains your media-queries where they belong – in your SASS/SCSS. It also makes them available with the same name space in your JS without polluting your HTML. Check out the [demo](http://codepen.io/meodai/pen/kzwAy?editors=011).
+`Sensible` maintains your media-queries where they belong – in your SASS/SCSS. It also makes them available with the same name space in your JS without polluting your HTML. Check out the [demo](http://codepen.io/meodai/pen/kzwAy?editors=011). [Demo2](http://codepen.io/meodai/pen/GZRjom?editors=0110)
 
 
 ## Setup
