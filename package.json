@@ -1,6 +1,6 @@
 {
   "name": "sensible",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Maintains media-queries where they belong; in the SASS/SCSS and make them available with the same name space in JS without polluting the HTML",
   "browser": "mediaQuery.js",
   "main": "mediaQuery.js",

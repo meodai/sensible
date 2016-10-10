@@ -29,7 +29,6 @@
         "README.md"
     ],
     "dependencies": {
-        "matchMedia": "0.2.0",
-        "jquery": ">=1.10.2"
+        "matchMedia": "0.2.0"
     }
 }
